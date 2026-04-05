@@ -1,0 +1,17 @@
+# 환경변수 (절대 올리면 안 됨!)
+.env
+.env.local
+.env.production
+
+# 의존성 (용량 크고 자동 설치되니까 제외)
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Next.js 빌드 결과물
+frontend/.next/
+frontend/out/
+
+# 기타
+.DS_Store
+*.log
