@@ -16,7 +16,7 @@ export default function ProductCard({ product, delay = 0 }) {
 
   return (
     <div
-      className={`${styles.card} reveal`}
+      className={styles.card}
       style={{ transitionDelay: `${delay}s` }}
       data-cursor
     >
