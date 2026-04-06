@@ -33,9 +33,17 @@ export default function ProductDetail() {
         {/* Image panel */}
         <div
           className={styles.imagePanel}
-          style={{ background: BG_MAP[product.category] || BG_MAP.fashion }}
+          style={{ background: product.images?.length ? '#F5F0E8' : BG_MAP[product.category] || BG_MAP.fashion }}
         >
-          <span className={styles.productEmoji}>{product.emoji || '📦'}</span>
+          {product.images?.length ? (
+            <img
+              src={product.images[0].url}
+              alt={product.images[0].alt || product.name}
+              style={{ width: '80%', height: '80%', objectFit: 'contain' }}
+            />
+          ) : (
+            <span className={styles.productEmoji}>{product.emoji || '📦'}</span>
+          )}
           {product.tag && <span className={styles.badgeFloat}>{product.tag}</span>}
         </div>
 
