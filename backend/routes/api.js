@@ -35,6 +35,8 @@ const apiLimiter = rateLimit({
 router.use(requireApiKey, apiLimiter)
 
 // ── Validation Schemas ─────────────────────────────────────
+const ImageItem = z.object({ url: z.string().url(), alt: z.string().optional() })
+
 const ProductSchema = z.object({
   name:           z.string().min(1).max(200),
   price:          z.number().int().min(0),
@@ -45,7 +47,8 @@ const ProductSchema = z.object({
   emoji:          z.string().optional(),
   tag:            z.string().max(40).optional(),
   stock:          z.number().int().min(0).default(0),
-  images:         z.array(z.object({ url: z.string().url(), alt: z.string().optional() })).optional(),
+  images:         z.array(ImageItem).max(5).optional(),
+  detail_images:  z.array(ImageItem).optional(),
   meta:           z.record(z.unknown()).optional(),
 })
 
@@ -58,12 +61,13 @@ router.post('/products', async (req, res, next) => {
     const { rows: [product] } = await query(`
       INSERT INTO products
         (name, price, category, description, detail, original_price,
-         emoji, tag, stock, images, meta, source)
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,'api')
+         emoji, tag, stock, images, detail_images, meta, source)
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,'api')
       RETURNING *
     `, [body.name, body.price, body.category, body.description,
         body.detail, body.original_price, body.emoji, body.tag,
         body.stock, JSON.stringify(body.images || []),
+        JSON.stringify(body.detail_images || []),
         JSON.stringify(body.meta || {})])
     res.status(201).json({ success: true, product })
   } catch (e) { next(e) }
@@ -130,8 +134,9 @@ router.patch('/products/:id', async (req, res, next) => {
 
     const sets   = fields.map((f, i) => `${f}=$${i + 2}`)
     const values = fields.map(f => {
-      if (f === 'images') return JSON.stringify(body[f])
-      if (f === 'meta')   return JSON.stringify(body[f])
+      if (f === 'images')        return JSON.stringify(body[f])
+      if (f === 'detail_images') return JSON.stringify(body[f])
+      if (f === 'meta')          return JSON.stringify(body[f])
       return body[f]
     })
     const { rows } = await query(
@@ -224,28 +229,6 @@ router.get('/orders', async (req, res, next) => {
   } catch (e) { next(e) }
 })
 
-// ── POST /api/v1/keys  — API 키 발급 (admin JWT만 가능) ───
-// 이 엔드포인트는 API Key 인증 대신 admin JWT 사용
-router.post('/keys', async (req, res, next) => {
-  // requireApiKey는 이미 적용돼 있으므로 admin key인지 확인
-  if (!req.apiKey?.permissions?.includes('admin')) {
-    return res.status(403).json({ error: '관리자 권한 필요' })
-  }
-  try {
-    const { label, permissions = ['products:write'], rate_limit = 100 } = req.body
-    const rawKey   = `sk-live-${uuid().replace(/-/g,'').slice(0,24)}`
-    const prefix   = rawKey.slice(0, 12)
-    const keyHash  = await bcrypt.hash(rawKey, 12)
-
-    const { rows: [key] } = await query(`
-      INSERT INTO api_keys (key_hash, key_prefix, label, permissions, rate_limit)
-      VALUES ($1,$2,$3,$4,$5)
-      RETURNING id, key_prefix, label, permissions, rate_limit, created_at
-    `, [keyHash, prefix, label, JSON.stringify(permissions), rate_limit])
-
-    // 실제 키는 생성 시점 한 번만 반환 (이후 조회 불가)
-    res.status(201).json({ ...key, key: rawKey, warning: '이 키는 지금만 확인할 수 있습니다' })
-  } catch (e) { next(e) }
-})
+module.exports = router
 
 module.exports = router

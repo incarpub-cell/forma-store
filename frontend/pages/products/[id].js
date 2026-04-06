@@ -22,25 +22,50 @@ export default function ProductDetail() {
   const addItem = useCartStore(s => s.addItem)
   const [qty, setQty] = useState(1)
   const [tab, setTab] = useState('detail')
+  const [activeImg, setActiveImg] = useState(0)
 
   if (isLoading) return <div className={styles.loading}>로딩 중...</div>
   if (!product)  return <div className={styles.loading}>상품을 찾을 수 없습니다</div>
+
+  const images = product.images || []
 
   return (
     <>
       <Head><title>{product.name} — FORMA</title></Head>
       <div className={styles.page}>
         {/* Image panel */}
-        <div
-          className={styles.imagePanel}
-          style={{ background: product.images?.length ? '#F5F0E8' : BG_MAP[product.category] || BG_MAP.fashion }}
+        <div className={styles.imagePanel}
+          style={{ background: images.length ? '#F5F0E8' : BG_MAP[product.category] || BG_MAP.fashion }}
         >
-          {product.images?.length ? (
-            <img
-              src={product.images[0].url}
-              alt={product.images[0].alt || product.name}
-              style={{ width: '80%', height: '80%', objectFit: 'contain' }}
-            />
+          {images.length ? (
+            <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
+              {/* 메인 이미지 */}
+              <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
+                <img
+                  src={images[activeImg].url}
+                  alt={images[activeImg].alt || product.name}
+                  style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                />
+              </div>
+              {/* 썸네일 */}
+              {images.length > 1 && (
+                <div style={{ display: 'flex', gap: 8, padding: '0 24px 24px', overflowX: 'auto' }}>
+                  {images.map((img, i) => (
+                    <div
+                      key={i}
+                      onClick={() => setActiveImg(i)}
+                      style={{
+                        width: 64, height: 64, flexShrink: 0,
+                        border: i === activeImg ? '2px solid #1A1814' : '2px solid transparent',
+                        cursor: 'pointer', overflow: 'hidden', background: '#EDE8E0',
+                      }}
+                    >
+                      <img src={img.url} alt={img.alt} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           ) : (
             <span className={styles.productEmoji}>{product.emoji || '📦'}</span>
           )}
@@ -68,10 +93,7 @@ export default function ProductDetail() {
           </div>
 
           <div className={styles.actions}>
-            <button
-              className={styles.addToCart}
-              onClick={() => addItem({ ...product, qty })}
-            >
+            <button className={styles.addToCart} onClick={() => addItem({ ...product, qty })}>
               장바구니 담기
             </button>
             <button className={styles.buyNow}>바로 구매</button>
@@ -103,9 +125,23 @@ export default function ProductDetail() {
           </div>
           <div className={styles.tabContent}>
             {tab === 'detail' && (
-              <p style={{ fontSize: 14, lineHeight: 1.8, color: 'var(--muted)' }}>
-                {product.detail || '상세 정보가 없습니다.'}
-              </p>
+              <div>
+                <p style={{ fontSize: 14, lineHeight: 1.8, color: 'var(--muted)', marginBottom: 24 }}>
+                  {product.detail || '상세 정보가 없습니다.'}
+                </p>
+                {product.detail_images?.length > 0 && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {product.detail_images.map((img, i) => (
+                      <img
+                        key={i}
+                        src={img.url}
+                        alt={img.alt || `상세이미지${i+1}`}
+                        style={{ width: '100%', display: 'block' }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
             )}
             {tab === 'review' && <p style={{ color: 'var(--muted)', fontSize: 14 }}>아직 리뷰가 없습니다.</p>}
             {tab === 'shipping' && (
