@@ -38,6 +38,29 @@ router.get('/products', async (req, res, next) => {
   } catch (e) { next(e) }
 })
 
+// PUT /api/admin/products/:id/update  — 관리자 상품 전체 수정
+router.put('/products/:id/update', async (req, res, next) => {
+  try {
+    const { name, price, original_price, category, description, detail,
+            emoji, tag, stock, images, detail_images, meta } = req.body
+    const { rows } = await query(`
+      UPDATE products SET
+        name=$1, price=$2, original_price=$3, category=$4,
+        description=$5, detail=$6, emoji=$7, tag=$8, stock=$9,
+        images=$10, detail_images=$11, meta=$12
+      WHERE id=$13
+      RETURNING *
+    `, [name, price, original_price, category, description, detail,
+        emoji, tag, stock,
+        JSON.stringify(images || []),
+        JSON.stringify(detail_images || []),
+        JSON.stringify(meta || {}),
+        req.params.id])
+    if (!rows.length) return res.status(404).json({ error: '상품 없음' })
+    res.json({ success: true, product: rows[0] })
+  } catch (e) { next(e) }
+})
+
 // PATCH /api/admin/products/:id/status
 router.patch('/products/:id/status', async (req, res, next) => {
   try {
