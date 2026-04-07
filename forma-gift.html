@@ -1,5 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap');
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORMA GIFT — 마음을 담은 선물</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
 
+/* ─── TOKENS ─────────────────────────────────────── */
 :root {
   --bg:       #F9F5EF;
   --bg2:      #F2EBE0;
@@ -17,11 +26,11 @@
   --ribbon:   #6B2737;
   --tag-bg:   #1C1410;
 }
- 
+
 /* ─── RESET ──────────────────────────────────────── */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
- 
+
 body {
   background: var(--bg);
   color: var(--ink);
@@ -30,7 +39,7 @@ body {
   overflow-x: hidden;
   cursor: none;
 }
- 
+
 /* ─── CURSOR ─────────────────────────────────────── */
 .cursor {
   position: fixed; width:8px; height:8px;
@@ -52,7 +61,7 @@ body {
 }
 .cursor.big { width:5px; height:5px; background:var(--burg); }
 .cursor-ring.big { width:48px; height:48px; opacity:0.25; border-color:var(--burg); }
- 
+
 /* ─── NAV ────────────────────────────────────────── */
 nav {
   position: fixed; top:0; left:0; right:0; z-index:200;
@@ -87,7 +96,7 @@ nav.scrolled {
 }
 .nav-links a:hover { opacity:1; color:var(--gold); }
 .nav-links a:hover::after { transform:scaleX(1); }
- 
+
 .nav-right { display:flex; gap:24px; align-items:center; }
 .nav-gift-btn {
   font-family:'Jost',sans-serif; font-size:10px; letter-spacing:.2em;
@@ -111,14 +120,14 @@ nav.scrolled {
   color:var(--ink); display:flex; align-items:center; justify-content:center;
   font-family:'Jost',sans-serif;
 }
- 
+
 /* ─── HERO ───────────────────────────────────────── */
 .hero {
   min-height: 100vh;
   display: grid; grid-template-columns: 1fr 1fr;
   position:relative; overflow:hidden;
 }
- 
+
 /* diagonal ribbon across entire hero */
 .hero::after {
   content:'';
@@ -151,7 +160,7 @@ nav.scrolled {
 }
 .bow-knot::before { right:100%; border-radius:0 50% 50% 0; }
 .bow-knot::after  { left:100%;  border-radius:50% 0 0 50%; }
- 
+
 .hero-left {
   background: var(--ink);
   display:flex; flex-direction:column; justify-content:flex-end;
@@ -166,7 +175,7 @@ nav.scrolled {
     repeating-linear-gradient(90deg, transparent 0, transparent 59px, rgba(255,255,255,.025) 59px, rgba(255,255,255,.025) 60px),
     repeating-linear-gradient(180deg, transparent 0, transparent 59px, rgba(255,255,255,.025) 59px, rgba(255,255,255,.025) 60px);
 }
- 
+
 .hero-eyebrow {
   font-size:10px; letter-spacing:.3em; text-transform:uppercase;
   color:var(--gold-lt); margin-bottom:28px;
@@ -207,7 +216,7 @@ nav.scrolled {
 }
 .btn-ghost-light:hover { color:var(--gold-lt); }
 .btn-ghost-light::after { content:'↓'; }
- 
+
 /* hero right — warm gift unwrap visual */
 .hero-right {
   background: var(--bg2);
@@ -291,7 +300,7 @@ nav.scrolled {
   width:12px; height:12px; border-radius:50%;
   background:var(--gold);
 }
- 
+
 .hero-badge {
   position:absolute; bottom:48px; right:56px;
   width:96px; height:96px; border-radius:50%;
@@ -304,7 +313,7 @@ nav.scrolled {
   font-size:7px; letter-spacing:.25em; text-transform:uppercase;
   color:var(--gold); line-height:1.6;
 }
- 
+
 /* floating sparkles */
 .sparkle {
   position:absolute; width:4px; height:4px;
@@ -312,7 +321,7 @@ nav.scrolled {
   animation:sparkleFloat var(--dur,4s) ease-in-out var(--delay,0s) infinite;
   opacity:0;
 }
- 
+
 @keyframes up   { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
 @keyframes lidFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 @keyframes giftPulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
@@ -331,7 +340,7 @@ nav.scrolled {
   0%  {clip-path:inset(0 100% 0 0)}
   100%{clip-path:inset(0 0% 0 0)}
 }
- 
+
 /* ─── MARQUEE ─────────────────────────────────────── */
 .marquee-wrap {
   background: var(--burg);
@@ -348,7 +357,7 @@ nav.scrolled {
   background:var(--gold-lt); transform:rotate(45deg);
   vertical-align:middle; margin:0 36px; opacity:.7;
 }
- 
+
 /* ─── SECTION BASE ────────────────────────────────── */
 section { padding:128px 56px; }
 .section-label {
@@ -364,7 +373,7 @@ section { padding:128px 56px; }
   font-size:clamp(36px,4vw,56px); line-height:1.08; font-weight:300;
 }
 .section-title em { font-style:italic; color:var(--burg); }
- 
+
 /* ─── OCCASION STRIP (새 섹션) ─────────────────────── */
 .occasions { background:var(--ink); padding:80px 56px; }
 .occ-heading {
@@ -374,7 +383,7 @@ section { padding:128px 56px; }
 .occ-heading .section-label::before { display:none; }
 .occ-heading .section-title { color:white; }
 .occ-heading .section-title em { color:var(--gold2); }
- 
+
 .occ-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; }
 .occ-item {
   background:rgba(255,255,255,.03);
@@ -407,7 +416,7 @@ section { padding:128px 56px; }
   font-family:'Cormorant Garamond',serif; font-size:17px; font-weight:300;
   color:rgba(255,255,255,.75); position:relative; z-index:1; transition:color .35s;
 }
- 
+
 /* ─── CATEGORIES ──────────────────────────────────── */
 .cat-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:52px; }
 .cat-item {
@@ -431,7 +440,7 @@ section { padding:128px 56px; }
   font-size:10px; letter-spacing:.18em; text-transform:uppercase;
   color:var(--ink2); position:relative; z-index:1; transition:color .35s; font-weight:500;
 }
- 
+
 /* ─── PRODUCTS ────────────────────────────────────── */
 .product-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:3px; }
 .product-header {
@@ -445,7 +454,7 @@ section { padding:128px 56px; }
   transition:color .2s; white-space:nowrap; margin-bottom:4px;
 }
 .see-all:hover { color:var(--gold); }
- 
+
 .product-card {
   background:var(--cream); position:relative; overflow:hidden; cursor:none;
   transition:transform .4s cubic-bezier(.25,.46,.45,.94);
@@ -453,7 +462,7 @@ section { padding:128px 56px; }
 .product-card:hover { transform:translateY(-6px); }
 .product-card:hover .pcard-overlay { opacity:1; }
 .product-card:hover .pcard-img-inner { transform:scale(1.05); }
- 
+
 .pcard-img { aspect-ratio:3/4; overflow:hidden; position:relative; }
 .pcard-img-inner {
   width:100%; height:100%; display:flex; align-items:center; justify-content:center;
@@ -472,7 +481,7 @@ section { padding:128px 56px; }
   transform:translateY(8px); transition:transform .3s;
 }
 .product-card:hover .pcard-overlay-btn { transform:translateY(0); }
- 
+
 /* Gift tag on card */
 .pcard-gift-tag {
   position:absolute; top:16px; left:16px; z-index:2;
@@ -483,7 +492,7 @@ section { padding:128px 56px; }
 .pcard-gift-tag::before {
   content:'◆'; color:var(--gold); font-size:5px;
 }
- 
+
 .pcard-info { padding:20px 20px 24px; }
 .pcard-category {
   font-size:9px; letter-spacing:.2em; text-transform:uppercase;
@@ -504,11 +513,11 @@ section { padding:128px 56px; }
 }
 .pcard-tag.gold { background:var(--gold); color:var(--ink); }
 .pcard-tag.green{ background:#3D5A4C; color:white; }
- 
+
 /* ─── GIFT GUIDE (new editorial) ──────────────────── */
 .gift-guide { padding:0 56px 128px; }
 .gg-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:3px; }
- 
+
 .gg-card {
   position:relative; overflow:hidden; cursor:none;
   min-height:460px; display:flex; flex-direction:column; justify-content:flex-end;
@@ -522,7 +531,7 @@ section { padding:128px 56px; }
 .gg-emoji { font-size:100px; opacity:.25; transition:transform .5s, opacity .5s; }
 .gg-card:hover .gg-emoji { transform:scale(1.15); opacity:.35; }
 .gg-card:hover .gg-arrow { transform:translateX(6px); }
- 
+
 .gg-content { position:relative; z-index:2; }
 .gg-label {
   font-size:9px; letter-spacing:.28em; text-transform:uppercase;
@@ -538,11 +547,11 @@ section { padding:128px 56px; }
   font-size:13px; color:var(--gold2);
   transition:transform .3s; display:inline-block;
 }
- 
+
 .gg-bg-1 { background: linear-gradient(135deg,#2A1A22,#4A2535); }
 .gg-bg-2 { background: linear-gradient(135deg,#1A2229,#1E3545); }
 .gg-bg-3 { background: linear-gradient(135deg,#22201A,#3D3020); }
- 
+
 /* ─── EDITORIAL ───────────────────────────────────── */
 .editorial-grid {
   display:grid; grid-template-columns:1.4fr 1fr; gap:3px; margin-bottom:3px;
@@ -570,7 +579,7 @@ section { padding:128px 56px; }
 }
 .ed-title em { font-style:italic; color:var(--gold2); }
 .ed-desc { font-size:13px; color:rgba(255,255,255,.38); line-height:1.85; max-width:380px; margin-bottom:36px; }
- 
+
 .editorial-side { display:grid; grid-template-rows:1fr 1fr; gap:3px; }
 .ed-small {
   padding:44px 40px; display:flex; flex-direction:column; justify-content:flex-end;
@@ -584,7 +593,7 @@ section { padding:128px 56px; }
   font-family:'Cormorant Garamond',serif; font-size:22px;
   line-height:1.2; margin-bottom:20px; font-weight:400;
 }
- 
+
 /* ─── API SECTION ─────────────────────────────────── */
 .api-section {
   background:var(--burg); padding:108px 56px; position:relative; overflow:hidden;
@@ -614,14 +623,14 @@ section { padding:128px 56px; }
 .cs { color:#8BAD9A; }
 .cn { color:#C0A898; }
 .cc { color:rgba(255,255,255,.2); font-style:italic; }
- 
+
 .api-feats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; border-top:1px solid rgba(255,255,255,.1); }
 .api-feat { padding:40px 36px; border-right:1px solid rgba(255,255,255,.07); }
 .api-feat:last-child { border-right:none; }
 .af-n { font-family:'Cormorant Garamond',serif; font-size:42px; color:rgba(255,255,255,.07); margin-bottom:16px; }
 .af-t { font-size:13px; color:white; font-weight:400; margin-bottom:10px; letter-spacing:.03em; }
 .af-d { font-size:12px; color:rgba(255,255,255,.3); line-height:1.8; }
- 
+
 /* ─── FOOTER ──────────────────────────────────────── */
 footer {
   background:var(--ink); padding:88px 56px 48px;
@@ -647,7 +656,7 @@ footer {
   font-size:10px; color:rgba(255,255,255,.18); letter-spacing:.06em;
   background:var(--ink);
 }
- 
+
 /* ─── CART PANEL ──────────────────────────────────── */
 .cart-backdrop { position:fixed; inset:0; background:rgba(28,20,16,.35); z-index:300; display:none; }
 .cart-panel {
@@ -704,7 +713,7 @@ footer {
   transition:color .2s;
 }
 .cart-continue:hover { color:var(--ink); }
- 
+
 /* ─── SCROLL REVEAL ───────────────────────────────── */
 .reveal {
   opacity:0; transform:translateY(28px);
@@ -716,12 +725,550 @@ footer {
 .rd3 { transition-delay:.24s; }
 .rd4 { transition-delay:.32s; }
 .rd5 { transition-delay:.40s; }
- 
+
 /* gold hairline divider */
 .gold-divider { height:1px; background:linear-gradient(90deg, transparent, var(--gold), transparent); margin:0 56px; opacity:.4; }
- .reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- CART BACKDROP -->
+<div class="cart-backdrop" id="backdrop" onclick="closeCart()"></div>
+
+<!-- CART PANEL -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h2>장바구니</h2>
+    <button class="cart-close" onclick="closeCart()">×</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <span class="cart-empty-icon">🎁</span>
+      <span class="cart-empty-text">장바구니가 비었습니다</span>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">
+      <span class="cart-total-label">합계</span>
+      <span class="cart-total-price" id="cartTotal">₩0</span>
+    </div>
+    <button class="cart-checkout">구매하기</button>
+    <button class="cart-continue" onclick="closeCart()">쇼핑 계속하기 →</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    Forma
+    <span>Gift Collection</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">새 컬렉션</a></li>
+    <li><a href="#">패션</a></li>
+    <li><a href="#">푸드</a></li>
+    <li><a href="#">라이프</a></li>
+    <li><a href="#story">브랜드</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-gift-btn">선물 추천받기</button>
+    <button class="cart-icon" onclick="openCart()">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" style="padding:0">
+  <!-- dark left side -->
+  <div class="hero-left">
+    <p class="hero-eyebrow">2025 Gift Collection</p>
+    <h1 class="hero-title">
+      마음을<br>
+      <em>담아</em><br>
+      전하다
+    </h1>
+    <p class="hero-sub">가장 소중한 사람에게 전하는 정성. 단순한 물건이 아닌, 기억에 남는 선물을 큐레이션합니다.</p>
+    <div class="hero-cta">
+      <a href="#products" class="btn-primary-dark">선물 고르기</a>
+      <a href="#guide" class="btn-ghost-light">선물 가이드</a>
+    </div>
+  </div>
+
+  <!-- ribbon divider -->
+  <div class="hero-bow">
+    <div class="bow-knot"></div>
+  </div>
+
+  <!-- right side gift visual -->
+  <div class="hero-right">
+    <!-- sparkles -->
+    <div class="sparkle" style="top:25%;left:30%;--dur:3.5s;--delay:0s;--tx:15px;--ty:-50px"></div>
+    <div class="sparkle" style="top:40%;left:70%;--dur:4s;--delay:.8s;--tx:-20px;--ty:-40px"></div>
+    <div class="sparkle" style="top:65%;left:45%;--dur:3s;--delay:1.5s;--tx:25px;--ty:-35px"></div>
+    <div class="sparkle" style="top:20%;left:55%;--dur:5s;--delay:.3s;--tx:-10px;--ty:-60px"></div>
+
+    <div class="gift-box-visual">
+      <div class="gbox-lid">
+        <span class="gbox-lid-label">Forma Gift</span>
+      </div>
+      <div class="gbox-body">
+        <div class="gbox-ribbon-v"></div>
+        <div class="gbox-content">🎁</div>
+        <div class="gbox-tag">FOR YOU</div>
+      </div>
+    </div>
+
+    <div class="hero-badge">
+      <span>무료&nbsp;·&nbsp;선물<br>포장&nbsp;서비스</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span class="marquee-item">생일 선물</span><span class="marquee-diamond"></span>
+    <span class="marquee-item">기념일 선물</span><span class="marquee-diamond"></span>
+    <span class="marquee-item">감사 선물</span><span class="marquee-diamond"></span>
+    <span class="marquee-item">집들이 선물</span><span class="marquee-diamond"></span>
+    <span class="marquee-item">명절 선물</span><span class="marquee-diamond"></span>
+    <span class="marquee-item">무료 선물 포장</span><span class="marquee-diamond"></span>
+    <span class="marquee-item">생일 선물</span><span class="marquee-diamond"></span>
+    <span class="marquee-item">기념일 선물</span><span class="marquee-diamond"></span>
+    <span class="marquee-item">감사 선물</span><span class="marquee-diamond"></span>
+    <span class="marquee-item">집들이 선물</span><span class="marquee-diamond"></span>
+    <span class="marquee-item">명절 선물</span><span class="marquee-diamond"></span>
+    <span class="marquee-item">무료 선물 포장</span><span class="marquee-diamond"></span>
+  </div>
+</div>
+
+<!-- ═══ OCCASIONS ═══ -->
+<div class="occasions">
+  <div class="occ-heading reveal">
+    <p class="section-label">Occasion</p>
+    <h2 class="section-title">어떤 <em>순간</em>을 위한 선물인가요?</h2>
+  </div>
+  <div class="occ-grid">
+    <div class="occ-item reveal rd1">
+      <span class="occ-icon">🎂</span>
+      <span class="occ-label">Birthday</span>
+      <span class="occ-name">생일 축하</span>
+    </div>
+    <div class="occ-item reveal rd2">
+      <span class="occ-icon">💍</span>
+      <span class="occ-label">Anniversary</span>
+      <span class="occ-name">기념일</span>
+    </div>
+    <div class="occ-item reveal rd3">
+      <span class="occ-icon">🙏</span>
+      <span class="occ-label">Gratitude</span>
+      <span class="occ-name">감사의 마음</span>
+    </div>
+    <div class="occ-item reveal rd4">
+      <span class="occ-icon">🏡</span>
+      <span class="occ-label">Housewarming</span>
+      <span class="occ-name">집들이 축하</span>
+    </div>
+    <div class="occ-item reveal rd5">
+      <span class="occ-icon">🌸</span>
+      <span class="occ-label">Just Because</span>
+      <span class="occ-name">이유 없는 선물</span>
+    </div>
+  </div>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- ═══ CATEGORIES ═══ -->
+<section>
+  <div class="reveal">
+    <p class="section-label">Category</p>
+    <h2 class="section-title">카테고리 <em>탐색</em></h2>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-item reveal rd1"><span class="cat-emoji">👗</span><span class="cat-name">패션</span></div>
+    <div class="cat-item reveal rd2"><span class="cat-emoji">🍱</span><span class="cat-name">식품</span></div>
+    <div class="cat-item reveal rd3"><span class="cat-emoji">🌿</span><span class="cat-name">뷰티</span></div>
+    <div class="cat-item reveal rd4"><span class="cat-emoji">🏠</span><span class="cat-name">라이프</span></div>
+    <div class="cat-item reveal rd5"><span class="cat-emoji">💊</span><span class="cat-name">건강</span></div>
+  </div>
+</section>
+
+<!-- ═══ PRODUCTS ═══ -->
+<section id="products" style="padding-top:0">
+  <div class="product-header reveal">
+    <div>
+      <p class="section-label">New Arrivals</p>
+      <h2 class="section-title">신상품 <em>컬렉션</em></h2>
+    </div>
+    <a href="#" class="see-all">전체 보기 →</a>
+  </div>
+  <div class="product-grid" id="productGrid">
+
+    <div class="product-card reveal rd1" data-id="p1" data-name="코튼 오버핏 재킷" data-cat="패션 / 아우터" data-price="128000" data-emoji="🧥" data-color="linear-gradient(145deg,#F0E8DC,#E0D4C4)">
+      <div class="pcard-gift-tag">선물 추천</div>
+      <div class="pcard-img">
+        <div class="pcard-img-inner" style="background:linear-gradient(145deg,#F0E8DC,#E0D4C4)">🧥</div>
+        <div class="pcard-overlay"><button class="pcard-overlay-btn" onclick="addToCart(this)">장바구니 담기</button></div>
+      </div>
+      <div class="pcard-info">
+        <p class="pcard-category">패션 / 아우터</p>
+        <p class="pcard-name">코튼 오버핏 재킷</p>
+        <div class="pcard-price"><span>₩128,000</span><span class="pcard-tag gold">NEW</span></div>
+      </div>
+    </div>
+
+    <div class="product-card reveal rd2" data-id="p2" data-name="국산 유기농 된장 세트" data-cat="식품 / 발효" data-price="38000" data-emoji="🫙" data-color="linear-gradient(145deg,#D8E4DC,#C4D8CC)">
+      <div class="pcard-img">
+        <div class="pcard-img-inner" style="background:linear-gradient(145deg,#D8E4DC,#C4D8CC)">🫙</div>
+        <div class="pcard-overlay"><button class="pcard-overlay-btn" onclick="addToCart(this)">장바구니 담기</button></div>
+      </div>
+      <div class="pcard-info">
+        <p class="pcard-category">식품 / 발효</p>
+        <p class="pcard-name">국산 유기농 된장 세트</p>
+        <div class="pcard-price"><span>₩38,000</span><span class="pcard-tag green">유기농</span></div>
+      </div>
+    </div>
+
+    <div class="product-card reveal rd3" data-id="p3" data-name="소이 캔들 컬렉션" data-cat="라이프 / 홈" data-price="42000" data-emoji="🕯️" data-color="linear-gradient(145deg,#E4D8D0,#D4C4BC)">
+      <div class="pcard-gift-tag">선물 추천</div>
+      <div class="pcard-img">
+        <div class="pcard-img-inner" style="background:linear-gradient(145deg,#E4D8D0,#D4C4BC)">🕯️</div>
+        <div class="pcard-overlay"><button class="pcard-overlay-btn" onclick="addToCart(this)">장바구니 담기</button></div>
+      </div>
+      <div class="pcard-info">
+        <p class="pcard-category">라이프 / 홈</p>
+        <p class="pcard-name">소이 캔들 컬렉션</p>
+        <div class="pcard-price"><span>₩42,000</span></div>
+      </div>
+    </div>
+
+    <div class="product-card reveal rd4" data-id="p4" data-name="녹차 수분 앰플" data-cat="뷰티 / 스킨케어" data-price="56000" data-emoji="🌿" data-color="linear-gradient(145deg,#DCDCE8,#CCCCE0)">
+      <div class="pcard-img">
+        <div class="pcard-img-inner" style="background:linear-gradient(145deg,#DCDCE8,#CCCCE0)">🌿</div>
+        <div class="pcard-overlay"><button class="pcard-overlay-btn" onclick="addToCart(this)">장바구니 담기</button></div>
+      </div>
+      <div class="pcard-info">
+        <p class="pcard-category">뷰티 / 스킨케어</p>
+        <p class="pcard-name">녹차 수분 앰플</p>
+        <div class="pcard-price"><span>₩56,000</span><span class="pcard-tag">BEST</span></div>
+      </div>
+    </div>
+
+    <div class="product-card reveal rd1" data-id="p5" data-name="캔버스 로우 스니커즈" data-cat="패션 / 신발" data-price="89000" data-emoji="👟" data-color="linear-gradient(145deg,#E8E0CC,#D8D0BC)">
+      <div class="pcard-img">
+        <div class="pcard-img-inner" style="background:linear-gradient(145deg,#E8E0CC,#D8D0BC)">👟</div>
+        <div class="pcard-overlay"><button class="pcard-overlay-btn" onclick="addToCart(this)">장바구니 담기</button></div>
+      </div>
+      <div class="pcard-info">
+        <p class="pcard-category">패션 / 신발</p>
+        <p class="pcard-name">캔버스 로우 스니커즈</p>
+        <div class="pcard-price"><span>₩89,000</span></div>
+      </div>
+    </div>
+
+    <div class="product-card reveal rd2" data-id="p6" data-name="제주 말차 블렌드" data-cat="식품 / 음료" data-price="24000" data-emoji="🍵" data-color="linear-gradient(145deg,#E0E8E0,#CCD8CC)">
+      <div class="pcard-gift-tag">선물 추천</div>
+      <div class="pcard-img">
+        <div class="pcard-img-inner" style="background:linear-gradient(145deg,#E0E8E0,#CCD8CC)">🍵</div>
+        <div class="pcard-overlay"><button class="pcard-overlay-btn" onclick="addToCart(this)">장바구니 담기</button></div>
+      </div>
+      <div class="pcard-info">
+        <p class="pcard-category">식품 / 음료</p>
+        <p class="pcard-name">제주 말차 블렌드</p>
+        <div class="pcard-price"><span>₩24,000</span><span class="pcard-tag green">제주산</span></div>
+      </div>
+    </div>
+
+    <div class="product-card reveal rd3" data-id="p7" data-name="린넨 쿠션 커버 2P" data-cat="라이프 / 패브릭" data-price="35000" data-emoji="🛋️" data-color="linear-gradient(145deg,#E8D4CC,#D8C4BC)">
+      <div class="pcard-img">
+        <div class="pcard-img-inner" style="background:linear-gradient(145deg,#E8D4CC,#D8C4BC)">🛋️</div>
+        <div class="pcard-overlay"><button class="pcard-overlay-btn" onclick="addToCart(this)">장바구니 담기</button></div>
+      </div>
+      <div class="pcard-info">
+        <p class="pcard-category">라이프 / 패브릭</p>
+        <p class="pcard-name">린넨 쿠션 커버 2P</p>
+        <div class="pcard-price"><span>₩35,000</span></div>
+      </div>
+    </div>
+
+    <div class="product-card reveal rd4" data-id="p8" data-name="마그네슘 + 비타민D 세트" data-cat="건강 / 영양제" data-price="47000" data-emoji="💊" data-color="linear-gradient(145deg,#DCE0E8,#CCD0DC)">
+      <div class="pcard-img">
+        <div class="pcard-img-inner" style="background:linear-gradient(145deg,#DCE0E8,#CCD0DC)">💊</div>
+        <div class="pcard-overlay"><button class="pcard-overlay-btn" onclick="addToCart(this)">장바구니 담기</button></div>
+      </div>
+      <div class="pcard-info">
+        <p class="pcard-category">건강 / 영양제</p>
+        <p class="pcard-name">마그네슘 + 비타민D 세트</p>
+        <div class="pcard-price"><span>₩47,000</span><span class="pcard-tag">SALE</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ GIFT GUIDE ═══ -->
+<section id="guide" style="padding-top:0;padding-left:56px;padding-right:56px;padding-bottom:128px">
+  <div class="reveal" style="margin-bottom:52px">
+    <p class="section-label">Gift Guide</p>
+    <h2 class="section-title">선물 <em>가이드</em></h2>
+  </div>
+  <div class="gg-grid">
+    <div class="gg-card gg-bg-1 reveal rd1">
+      <div class="gg-bg"><span class="gg-emoji">💝</span></div>
+      <div class="gg-content">
+        <p class="gg-label">Under ₩30,000</p>
+        <h3 class="gg-title">가볍게 전하는<br>작은 마음</h3>
+        <p class="gg-sub">부담 없이, 그러나 진심을 담아. 일상에 스며드는 소소한 선물들.</p>
+        <span class="gg-arrow">선물 보기 →</span>
+      </div>
+    </div>
+    <div class="gg-card gg-bg-2 reveal rd2">
+      <div class="gg-bg"><span class="gg-emoji">🎀</span></div>
+      <div class="gg-content">
+        <p class="gg-label">₩30,000 – ₩80,000</p>
+        <h3 class="gg-title">정성이 담긴<br>특별한 선택</h3>
+        <p class="gg-sub">받는 사람이 미소 짓게 될, 기억에 남는 선물의 무게.</p>
+        <span class="gg-arrow">선물 보기 →</span>
+      </div>
+    </div>
+    <div class="gg-card gg-bg-3 reveal rd3">
+      <div class="gg-bg"><span class="gg-emoji">✨</span></div>
+      <div class="gg-content">
+        <p class="gg-label">₩80,000 이상</p>
+        <h3 class="gg-title">잊을 수 없는<br>프리미엄 선물</h3>
+        <p class="gg-sub">최고의 순간을 위한, 오래 간직하고 싶은 선물의 품격.</p>
+        <span class="gg-arrow">선물 보기 →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══ EDITORIAL ═══ -->
+<section id="story" style="padding:0">
+  <div class="editorial-grid reveal">
+    <div class="editorial-main">
+      <span class="ed-big">GF</span>
+      <p class="ed-tag">브랜드 스토리</p>
+      <h2 class="ed-title">좋은 선물은<br><em>오래</em> 기억됩니다</h2>
+      <p class="ed-desc">선물은 물건이 아닙니다. 당신이 그 사람을 얼마나 생각했는지의 무게입니다. Forma는 그 무게를 함께 담습니다.</p>
+      <a href="#" class="btn-primary-dark" style="width:fit-content">스토리 읽기</a>
+    </div>
+    <div class="editorial-side">
+      <div class="ed-small es-bg-1">
+        <span class="ed-small-emoji">🌾</span>
+        <p class="ed-small-label">식품 큐레이션</p>
+        <p class="ed-small-title">산지 직송<br>프리미엄 식재료</p>
+        <a href="#" class="see-all" style="color:var(--ink2)">보러 가기 →</a>
+      </div>
+      <div class="ed-small es-bg-2">
+        <span class="ed-small-emoji">✨</span>
+        <p class="ed-small-label">시즌 선물 특가</p>
+        <p class="ed-small-title">여름 선물<br>최대 30% 할인</p>
+        <a href="#" class="see-all" style="color:var(--ink2)">보러 가기 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ API SECTION ═══ -->
+<div class="api-section">
+  <div class="api-inner">
+    <div class="api-header">
+      <div>
+        <p class="api-eyebrow">개발자 & 파트너 전용</p>
+        <h2 class="api-title">선물을 <em>자동으로</em><br>업로드하세요</h2>
+        <p class="api-desc">REST API를 통해 어떤 시스템에서도 상품을 자동 등록할 수 있습니다. ERP, 스프레드시트, 자동화 툴 모두 연동 가능합니다.</p>
+      </div>
+      <div class="api-code">
+        <span class="code-line"><span class="cc"># 상품 자동 등록 예시</span></span>
+        <span class="code-line">&nbsp;</span>
+        <span class="code-line">POST /api/v1/products</span>
+        <span class="code-line">Authorization: Bearer <span class="cs">sk-live-xxxx</span></span>
+        <span class="code-line">&nbsp;</span>
+        <span class="code-line">{</span>
+        <span class="code-line">&nbsp;&nbsp;<span class="ck">"name"</span>: <span class="cs">"코튼 오버핏 재킷"</span>,</span>
+        <span class="code-line">&nbsp;&nbsp;<span class="ck">"price"</span>: <span class="cn">128000</span>,</span>
+        <span class="code-line">&nbsp;&nbsp;<span class="ck">"category"</span>: <span class="cs">"fashion"</span>,</span>
+        <span class="code-line">&nbsp;&nbsp;<span class="ck">"gift_wrapping"</span>: <span class="cn">true</span>,</span>
+        <span class="code-line">&nbsp;&nbsp;<span class="ck">"images"</span>: [<span class="cs">"https://..."</span>]</span>
+        <span class="code-line">}</span>
+        <span class="code-line">&nbsp;</span>
+        <span class="code-line"><span class="cc"># → 200 OK, 즉시 스토어에 반영</span></span>
+      </div>
+    </div>
+    <div class="api-feats">
+      <div class="api-feat">
+        <p class="af-n">01</p>
+        <p class="af-t">REST API 제공</p>
+        <p class="af-d">상품 등록, 수정, 재고 동기화, 주문 조회까지. Swagger 문서 자동 제공.</p>
+      </div>
+      <div class="api-feat">
+        <p class="af-n">02</p>
+        <p class="af-t">API Key 인증</p>
+        <p class="af-d">파트너사/채널별 키 발급. 권한과 Rate Limit을 개별 설정 가능.</p>
+      </div>
+      <div class="api-feat">
+        <p class="af-n">03</p>
+        <p class="af-t">Webhook 알림</p>
+        <p class="af-d">주문 발생, 재고 소진 등 이벤트를 실시간으로 외부 시스템에 전송.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div>
+    <span class="footer-logo">Forma</span>
+    <span class="footer-sub">Gift Collection</span>
+    <p class="footer-desc">마음을 담아 전합니다.<br>가장 소중한 사람에게 전하는 정성.</p>
+    <p style="font-size:11px;letter-spacing:.05em">© 2025 Forma Store. All rights reserved.</p>
+  </div>
+  <div>
+    <p class="footer-head">카테고리</p>
+    <ul class="footer-links">
+      <li><a href="#">패션 & 의류</a></li>
+      <li><a href="#">식품 & 먹거리</a></li>
+      <li><a href="#">뷰티 & 케어</a></li>
+      <li><a href="#">라이프스타일</a></li>
+      <li><a href="#">건강 & 웰니스</a></li>
+    </ul>
+  </div>
+  <div>
+    <p class="footer-head">고객센터</p>
+    <ul class="footer-links">
+      <li><a href="#">공지사항</a></li>
+      <li><a href="#">자주 묻는 질문</a></li>
+      <li><a href="#">교환 & 반품</a></li>
+      <li><a href="#">배송 안내</a></li>
+    </ul>
+  </div>
+  <div>
+    <p class="footer-head">파트너</p>
+    <ul class="footer-links">
+      <li><a href="#">API 문서</a></li>
+      <li><a href="#">입점 문의</a></li>
+      <li><a href="#">공급사 로그인</a></li>
+      <li><a href="#">SDK 다운로드</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>FORMA — GIFT COLLECTION 2025</span>
+  <span>개인정보처리방침 · 이용약관</span>
+</div>
+
+<script>
+/* ── CURSOR ── */
+const cur = document.getElementById('cursor')
+const ring = document.getElementById('ring')
+let mx=0,my=0,rx=0,ry=0
+document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px' })
+;(function animRing(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})()
+document.querySelectorAll('a,button,.product-card,.cat-item,.occ-item,.gg-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('big');ring.classList.add('big')})
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('big');ring.classList.remove('big')})
+})
+
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 60)
+})
+
+/* ── SCROLL REVEAL ── */
+const obs = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible') }),{threshold:.08})
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+
+/* ── CART STATE ── */
+const cart = {}
+function fmt(n){ return '₩'+n.toLocaleString('ko-KR') }
+
+function addToCart(btn){
+  const card = btn.closest('.product-card')
+  const id   = card.dataset.id
+  const name = card.dataset.name
+  const cat  = card.dataset.cat
+  const price= parseInt(card.dataset.price)
+  const emoji= card.dataset.emoji
+  const color= card.dataset.color
+
+  if(cart[id]){ cart[id].qty++ } else { cart[id]={id,name,cat,price,emoji,color,qty:1} }
+  renderCart()
+  openCart()
+
+  /* ripple feedback */
+  btn.textContent = '✓ 담겼습니다'
+  btn.style.background = 'var(--burg)'
+  btn.style.color = 'white'
+  setTimeout(()=>{ btn.textContent='장바구니 담기'; btn.style.background=''; btn.style.color='' }, 1400)
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+
+function renderCart(){
+  const items = Object.values(cart)
+  const badge = document.getElementById('cartBadge')
+  const total = items.reduce((s,i)=>s+i.price*i.qty,0)
+  const totalQty = items.reduce((s,i)=>s+i.qty,0)
+
+  badge.textContent = totalQty
+  badge.style.display = totalQty > 0 ? 'flex' : 'none'
+
+  const el = document.getElementById('cartItems')
+  const footer = document.getElementById('cartFooter')
+  document.getElementById('cartTotal').textContent = fmt(total)
+
+  if(items.length === 0){
+    el.innerHTML = '<div class="cart-empty"><span class="cart-empty-icon">🎁</span><span class="cart-empty-text">장바구니가 비었습니다</span></div>'
+    footer.style.display = 'none'
+    return
+  }
+  footer.style.display = 'block'
+  el.innerHTML = items.map(i=>`
+    <div class="cart-item">
+      <div class="ci-thumb" style="background:${i.color}">${i.emoji}</div>
+      <div class="ci-info">
+        <p class="ci-cat">${i.cat}</p>
+        <p class="ci-name">${i.name}</p>
+        <div class="ci-row">
+          <div class="ci-qty">
+            <button onclick="changeQty('${i.id}',-1)">−</button>
+            <span>${i.qty}</span>
+            <button onclick="changeQty('${i.id}',1)">+</button>
+          </div>
+          <span class="ci-price">${fmt(i.price*i.qty)}</span>
+          <button class="ci-remove" onclick="removeItem('${i.id}')">삭제</button>
+        </div>
+      </div>
+    </div>`).join('')
+}
+
+function changeQty(id,d){
+  cart[id].qty += d
+  if(cart[id].qty <= 0) delete cart[id]
+  renderCart()
+}
+function removeItem(id){ delete cart[id]; renderCart() }
+
+function openCart(){
+  document.getElementById('cartPanel').classList.add('open')
+  document.getElementById('backdrop').classList.add('open')
+}
+function closeCart(){
+  document.getElementById('cartPanel').classList.remove('open')
+  document.getElementById('backdrop').classList.remove('open')
+}
+
+/* init */
+renderCart()
+</script>
+</body>
+</html>

@@ -1,188 +1,153 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import useSWR from 'swr'
-import { apiFetch } from '../lib/store'
-import ProductCard from '../components/ProductCard'
-import styles from '../styles/Home.module.css'
-
-const CATEGORIES = [
-  { slug: 'fashion',   label: '패션',    emoji: '👗' },
-  { slug: 'food',      label: '식품',    emoji: '🍱' },
-  { slug: 'beauty',    label: '뷰티',    emoji: '🌿' },
-  { slug: 'lifestyle', label: '라이프',  emoji: '🏠' },
-  { slug: 'health',    label: '건강',    emoji: '💊' },
-]
-
-const MARQUEE_ITEMS = ['패션 & 의류','프리미엄 식품','라이프스타일','건강 & 웰니스','홈 & 인테리어']
-
-export default function Home({ initialProducts }) {
-  const { data } = useSWR('/api/products?limit=8', apiFetch, {
-    fallbackData: initialProducts,
-  })
-  const products = data?.products || []
+export default function Home() {
+  // 장바구니 관련 임시 함수 (에러 방지용)
+  const openCart = () => document.getElementById('cartPanel')?.classList.add('active');
+  const closeCart = () => document.getElementById('cartPanel')?.classList.remove('active');
+  const addToCart = () => alert('장바구니에 담겼습니다!');
 
   return (
     <>
-      <Head>
-        <title>FORMA — 라이프스타일 스토어</title>
-        <meta name="description" content="일상을 다시 디자인하는 프리미엄 라이프스타일 스토어" />
-      </Head>
+      <div className="cursor" id="cursor"></div>
+      <div className="cursor-ring" id="ring"></div>
 
-      {/* ── HERO ───────────────────────────────────── */}
-      <section className={styles.hero}>
-        <div className={styles.heroLeft}>
-          <p className={`${styles.eyebrow} eyebrow`}>2025 SS Collection</p>
-          <h1 className={`${styles.heroTitle} display-title`}>
-            일상을<br />
-            <em>다시</em><br />
-            디자인하다
+      {/* CART BACKDROP */}
+      <div className="cart-backdrop" id="backdrop" onClick={closeCart}></div>
+
+      {/* CART PANEL */}
+      <div className="cart-panel" id="cartPanel">
+        <div className="cart-header">
+          <h2>장바구니</h2>
+          <button className="cart-close" onClick={closeCart}>×</button>
+        </div>
+        <div className="cart-items" id="cartItems">
+          <div className="cart-empty">
+            <span className="cart-empty-icon">🎁</span>
+            <span className="cart-empty-text">장바구니가 비었습니다</span>
+          </div>
+        </div>
+        <div className="cart-footer" id="cartFooter" style={{ display: 'none' }}>
+          <div className="cart-total">
+            <span className="cart-total-label">합계</span>
+            <span className="cart-total-price" id="cartTotal">₩0</span>
+          </div>
+          <button className="cart-checkout">구매하기</button>
+          <button className="cart-continue" onClick={closeCart}>쇼핑 계속하기 →</button>
+        </div>
+      </div>
+
+      {/* NAV */}
+      <nav id="nav">
+        <a href="#" className="nav-logo">
+          Forma
+          <span>Gift Collection</span>
+        </a>
+        <ul className="nav-links">
+          <li><a href="#">새 컬렉션</a></li>
+          <li><a href="#">패션</a></li>
+          <li><a href="#">푸드</a></li>
+          <li><a href="#">라이프</a></li>
+          <li><a href="#story">브랜드</a></li>
+        </ul>
+        <div className="nav-right">
+          <button className="nav-gift-btn">선물 추천받기</button>
+          <button className="cart-icon" onClick={openCart}>
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" fill="none" stroke="currentColor" strokeWidth="2" />
+              <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="2" />
+              <path d="M16 10a4 4 0 01-8 0" fill="none" stroke="currentColor" strokeWidth="2" />
+            </svg>
+            <span className="cart-badge" id="cartBadge">0</span>
+          </button>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section className="hero" style={{ padding: 0 }}>
+        <div className="hero-left">
+          <p className="hero-eyebrow">2025 Gift Collection</p>
+          <h1 className="hero-title">
+            마음을<br />
+            <em>담아</em><br />
+            전하다
           </h1>
-          <p className={styles.heroSub}>
-            스마트스토어와는 다릅니다. 브랜드의 철학을 담은 공간,
-            제품이 아닌 경험을 파는 스토어.
-          </p>
-          <div className={styles.heroCta}>
-            <Link href="/products" className={styles.btnPrimary}>컬렉션 보기</Link>
-            <Link href="/about"    className={styles.btnGhost}>브랜드 스토리</Link>
+          <p className="hero-sub">가장 소중한 사람에게 전하는 정성. 단순한 물건이 아닌, 기억에 남는 선물을 큐레이션합니다.</p>
+          <div className="hero-cta">
+            <a href="#products" className="btn-primary-dark">선물 고르기</a>
+            <a href="#guide" className="btn-ghost-light">선물 가이드</a>
           </div>
         </div>
-        <div className={styles.heroRight}>
-          <div className={styles.heroShape}>
-            <span style={{ fontSize: 100, opacity: .3 }}>🏺</span>
+
+        <div className="hero-bow">
+          <div className="bow-knot"></div>
+        </div>
+
+        <div className="hero-right">
+          <div className="sparkle" style={{ top: '25%', left: '30%', '--dur': '3.5s', '--delay': '0s', '--tx': '15px', '--ty': '-50px' }}></div>
+          <div className="sparkle" style={{ top: '40%', left: '70%', '--dur': '4s', '--delay': '.8s', '--tx': '-20px', '--ty': '-40px' }}></div>
+          <div className="sparkle" style={{ top: '65%', left: '45%', '--dur': '3s', '--delay': '1.5s', '--tx': '25px', '--ty': '-35px' }}></div>
+          <div className="sparkle" style={{ top: '20%', left: '55%', '--dur': '5s', '--delay': '.3s', '--tx': '-10px', '--ty': '-60px' }}></div>
+
+          <div className="gift-box-visual">
+            <div className="gbox-lid">
+              <span className="gbox-lid-label">Forma Gift</span>
+            </div>
+            <div className="gbox-body">
+              <div className="gbox-ribbon-v"></div>
+              <div className="gbox-content">🎁</div>
+              <div className="gbox-tag">FOR YOU</div>
+            </div>
           </div>
-          <span className={styles.heroLabel}>SS — 2025</span>
-          <span className={styles.heroCounter}>01</span>
+
+          <div className="hero-badge">
+            <span>무료&nbsp;·&nbsp;선물<br />포장&nbsp;서비스</span>
+          </div>
         </div>
       </section>
 
-      {/* ── MARQUEE ────────────────────────────────── */}
-      <div className={styles.marqueeWrap}>
-        <div className={styles.marqueeInner}>
-          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((t, i) => (
-            <span key={i} className={styles.marqueeItem}>{t}
-              <span className={styles.marqueeDot} />
-            </span>
-          ))}
+      {/* MARQUEE */}
+      <div className="marquee-wrap">
+        <div className="marquee-inner">
+          <span className="marquee-item">생일 선물</span><span className="marquee-diamond"></span>
+          <span className="marquee-item">기념일 선물</span><span className="marquee-diamond"></span>
+          <span className="marquee-item">감사 선물</span><span className="marquee-diamond"></span>
+          <span className="marquee-item">집들이 선물</span><span className="marquee-diamond"></span>
+          <span className="marquee-item">명절 선물</span><span className="marquee-diamond"></span>
+          <span className="marquee-item">무료 선물 포장</span><span className="marquee-diamond"></span>
         </div>
       </div>
 
-      {/* ── CATEGORIES ─────────────────────────────── */}
-      <section className={styles.section}>
-        <div className={`${styles.sectionHeader} reveal`}>
+      {/* PRODUCTS (예시로 하나만 유지, 필요시 복사해서 사용) */}
+      <section id="products">
+        <div className="product-header">
           <div>
-            <p className={styles.sectionNum}>00</p>
-            <h2 className={styles.sectionTitle}>카테고리 <em>탐색</em></h2>
+            <p className="section-label">New Arrivals</p>
+            <h2 className="section-title">신상품 <em>컬렉션</em></h2>
           </div>
         </div>
-        <div className={styles.categoryStrip}>
-          {CATEGORIES.map((c, i) => (
-            <Link
-              key={c.slug}
-              href={`/products?category=${c.slug}`}
-              className={`${styles.catItem} reveal`}
-              style={{ transitionDelay: `${i * 0.08}s` }}
-            >
-              <span className={styles.catEmoji}>{c.emoji}</span>
-              <span className={styles.catName}>{c.label}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── PRODUCTS ───────────────────────────────── */}
-      <section className={styles.section} id="products">
-        <div className={`${styles.sectionHeader} reveal`}>
-          <div>
-            <p className={styles.sectionNum}>01</p>
-            <h2 className={styles.sectionTitle}>신상품 <em>컬렉션</em></h2>
-          </div>
-          <Link href="/products" className={styles.seeAll}>전체 보기 →</Link>
-        </div>
-        <div className={styles.productGrid}>
-          {products.map((p, i) => (
-            <ProductCard key={p.id} product={p} delay={i * 0.07} />
-          ))}
-        </div>
-      </section>
-
-      {/* ── EDITORIAL ──────────────────────────────── */}
-      <section className={styles.section} style={{ paddingTop: 0 }}>
-        <div className={`${styles.editorialGrid} reveal`}>
-          <div className={styles.editorialMain}>
-            <span className={styles.editorialBigNum}>SS</span>
-            <p className={styles.editorialTag}>브랜드 스토리</p>
-            <h2 className={styles.editorialTitle}>
-              좋은 것들은<br /><em>오래</em> 머문다
-            </h2>
-            <p className={styles.editorialDesc}>
-              가치 있는 것들로만 큐레이션합니다. 불필요한 것을 걷어내고,
-              진짜 필요한 것들만 남긴 공간.
-            </p>
-            <Link href="/about" className={styles.btnPrimary}>스토리 읽기</Link>
-          </div>
-          <div className={styles.editorialSide}>
-            <Link href="/products?category=food" className={`${styles.editorialSmall} ${styles.es1}`}>
-              <span className={styles.esEmoji}>🌾</span>
-              <p className={styles.esLabel}>식품 큐레이션</p>
-              <p className={styles.esTitle}>산지 직송<br />프리미엄 식재료</p>
-              <span className={styles.esArrow}>→</span>
-            </Link>
-            <Link href="/products?tag=sale" className={`${styles.editorialSmall} ${styles.es2}`}>
-              <span className={styles.esEmoji}>✨</span>
-              <p className={styles.esLabel}>시즌 특가</p>
-              <p className={styles.esTitle}>여름 필수템<br />최대 30% 할인</p>
-              <span className={styles.esArrow}>→</span>
-            </Link>
+        <div className="product-grid">
+          <div className="product-card">
+            <div className="pcard-img">
+              <div className="pcard-img-inner" style={{ background: 'linear-gradient(145deg,#F0E8DC,#E0D4C4)' }}>🧥</div>
+              <div className="pcard-overlay">
+                <button className="pcard-overlay-btn" onClick={addToCart}>장바구니 담기</button>
+              </div>
+            </div>
+            <div className="pcard-info">
+              <p className="pcard-category">패션 / 아우터</p>
+              <p className="pcard-name">코튼 오버핏 재킷</p>
+              <div className="pcard-price"><span>₩128,000</span></div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── FOOTER ─────────────────────────────────── */}
-      <footer className={styles.footer}>
+      {/* FOOTER */}
+      <footer>
         <div>
-          <span className={styles.footerLogo}>Forma</span>
-          <p className={styles.footerDesc}>일상의 것들을 다시 디자인합니다.<br />가치 있는 것들만 모았습니다.</p>
-          <p style={{ fontSize: 11, letterSpacing: '.05em', color: 'rgba(255,255,255,.2)' }}>
-            © 2025 Forma Store. All rights reserved.
-          </p>
+          <span className="footer-logo">Forma</span>
+          <p className="footer-desc">마음을 담아 전합니다.</p>
+          <p style={{ fontSize: '11px' }}>© 2025 Forma Store. All rights reserved.</p>
         </div>
-        {[
-          { head: '카테고리', links: CATEGORIES.map(c => ({ label: c.label, href: `/products?category=${c.slug}` })) },
-          { head: '고객센터', links: [
-            { label: '공지사항', href: '/notice' },
-            { label: '자주 묻는 질문', href: '/faq' },
-            { label: '교환 & 반품', href: '/returns' },
-            { label: '배송 안내', href: '/shipping' },
-          ]},
-          { head: '파트너', links: [
-            { label: 'API 문서', href: '/api-docs' },
-            { label: '입점 문의', href: '/partner' },
-            { label: 'SDK 다운로드', href: '/sdk' },
-          ]},
-        ].map(col => (
-          <div key={col.head}>
-            <p className={styles.footerHead}>{col.head}</p>
-            <ul className={styles.footerLinks}>
-              {col.links.map(l => (
-                <li key={l.href}><Link href={l.href}>{l.label}</Link></li>
-              ))}
-            </ul>
-          </div>
-        ))}
       </footer>
-      <div className={styles.footerBottom}>
-        <span>FORMA — LIFESTYLE STORE</span>
-        <span>개인정보처리방침 · 이용약관</span>
-      </div>
     </>
-  )
-}
-
-export async function getServerSideProps() {
-  try {
-    const data = await apiFetch('/api/products?limit=8')
-    return { props: { initialProducts: data } }
-  } catch {
-    return { props: { initialProducts: { products: [] } } }
-  }
+  );
 }
