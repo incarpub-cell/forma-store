@@ -66,6 +66,16 @@ nav.scrolled {
   padding: 18px 56px;
   border-bottom: 1px solid var(--border);
 }
+/* 스크롤 전 — 밝은 텍스트 */
+nav:not(.scrolled) .nav-logo { color: rgba(255,255,255,.9); }
+nav:not(.scrolled) .nav-links a { color: rgba(255,255,255,.7); }
+nav:not(.scrolled) .nav-gift-btn { color: var(--gold-lt); border-color: var(--gold-lt); }
+
+/* 스크롤 후 — 원래 색상으로 복귀 */
+nav.scrolled .nav-logo { color: var(--ink); }
+nav.scrolled .nav-links a { color: var(--ink2); }
+nav.scrolled .nav-gift-btn { color: var(--gold); border-color: var(--gold); }
+
 .nav-logo {
   font-family: 'Cormorant Garamond', serif;
   font-size: 20px; font-weight:400; letter-spacing:.25em;
