@@ -1,29 +1,12 @@
 import '../styles/globals.css'
-import { useEffect } from 'react'
-import Cursor from '../components/Cursor'
-import Nav from '../components/Nav'
-import CartDrawer from '../components/CartDrawer'
-import { useCartStore } from '../lib/store'
+import { useRouter } from 'next/router'
 
 export default function App({ Component, pageProps }) {
-  // Scroll reveal observer
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible')
-      }),
-      { threshold: 0.1 }
-    )
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
+  const router = useRouter()
 
-  return (
-    <>
-      <Cursor />
-      <Nav />
-      <CartDrawer />
-      <Component {...pageProps} />
-    </>
-  )
+  // 관리자 페이지는 별도 레이아웃
+  const isAdmin = router.pathname.startsWith('/admin')
+
+  // 관리자 페이지는 globals.css만 적용, 나머지는 각 페이지가 자체 처리
+  return <Component {...pageProps} />
 }
