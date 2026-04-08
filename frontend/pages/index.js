@@ -165,7 +165,18 @@ export default function Home() {
       <section className="hero" style={{padding:0}}>
         <div className="hero-left">
           <p className="hero-eyebrow">2025 Gift Collection</p>
-          <h1 className="hero-title">마음을<br/><em>담아</em><br/>전하다</h1>
+
+<svg width="64" height="40" viewBox="0 0 64 40" fill="none"
+  style={{ marginBottom: 28, opacity: 0, animation: 'up .9s .4s forwards' }}>
+  <rect x="28" y="0" width="8" height="40" fill="#6B2737"/>
+  <rect x="0" y="16" width="64" height="8" fill="#6B2737"/>
+  <ellipse cx="32" cy="20" rx="10" ry="10" fill="#6B2737" stroke="#EDD898" strokeWidth="2"/>
+  <ellipse cx="14" cy="20" rx="10" ry="7" fill="#6B2737" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5"/>
+  <ellipse cx="50" cy="20" rx="10" ry="7" fill="#6B2737" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5"/>
+  <circle cx="32" cy="20" r="5" fill="#B8932A"/>
+</svg>
+
+<h1 className="hero-title">마음을<br/><em>담아</em><br/>전하다</h1>
           <p className="hero-sub">가장 소중한 사람에게 전하는 정성. 단순한 물건이 아닌, 기억에 남는 선물을 큐레이션합니다.</p>
           <div className="hero-cta">
             <a href="#products" className="btn-primary-dark">선물 고르기</a>
