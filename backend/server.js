@@ -11,6 +11,7 @@ const authRouter     = require('./routes/auth')
 const apiRouter      = require('./routes/api')
 const adminRouter    = require('./routes/admin')
 const webhookRouter  = require('./routes/webhooks')
+const uploadRouter   = require('./routes/upload')
 const { query }      = require('./db')
 const { requireAdmin } = require('./middleware/auth')
 
@@ -28,6 +29,7 @@ app.use('/api/auth',     authRouter)
 app.use('/api/v1',       apiRouter)
 app.use('/api/admin',    adminRouter)
 app.use('/api/webhooks', webhookRouter)
+app.use('/api/upload',   uploadRouter)
 
 // API Key 발급 - admin JWT 인증
 app.post('/api/admin/keys', requireAdmin, async (req, res, next) => {
