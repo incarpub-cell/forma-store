@@ -279,3 +279,37 @@
 }
 .saveBtn:hover { background: var(--accent); }
 .saveBtn:disabled { opacity: .5; cursor: not-allowed; }
+
+
+.uploadBanner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; background: var(--bg);
+  border: 1px solid var(--border); margin-bottom: 16px;
+}
+.dropZone {
+  position: relative; border: 2px dashed var(--border);
+  padding: 48px; text-align: center; cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.dropZone:hover, .dropActive {
+  border-color: var(--gold); background: rgba(184,147,42,.04);
+}
+.imgSlotGrid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+}
+.imgSlot {
+  aspect-ratio: 3/4; border: 1px dashed var(--border);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; background: var(--bg);
+  cursor: pointer;
+}
+.imgRemoveBtn {
+  position: absolute; top: 4px; right: 4px;
+  background: rgba(0,0,0,.6); color: white;
+  border: none; width: 20px; height: 20px;
+  border-radius: 50%; font-size: 12px; cursor: pointer;
+}
+
+
+
+
