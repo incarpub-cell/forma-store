@@ -37,6 +37,8 @@ app.use('/api/admin',    adminRouter)
 app.use('/api/webhooks', webhookRouter)
 app.use('/api/upload',   uploadRouter)
 
+
+
 // API Key 발급 - admin JWT 인증
 app.post('/api/admin/keys', requireAdmin, async (req, res, next) => {
   try {
@@ -55,9 +57,18 @@ app.post('/api/admin/keys', requireAdmin, async (req, res, next) => {
 
 app.get('/health', (_, res) => res.json({ ok: true, ts: Date.now() }))
 
+// 임시 확인용 - 확인 후 반드시 삭제!
+app.get('/dev/check-users', async (req, res) => {
+  const { rows } = await query('SELECT id, email, role FROM users')
+  res.json(rows)
+})
+
 app.use((err, req, res, next) => {
   console.error(err)
   res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' })
 })
 
 app.listen(PORT, () => console.log(`Forma API running on port ${PORT}`))
+
+
+
