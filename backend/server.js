@@ -57,11 +57,22 @@ app.post('/api/admin/keys', requireAdmin, async (req, res, next) => {
 
 app.get('/health', (_, res) => res.json({ ok: true, ts: Date.now() }))
 
+
 // 임시 확인용 - 확인 후 반드시 삭제!
 app.get('/dev/check-users', async (req, res) => {
   const { rows } = await query('SELECT id, email, role FROM users')
   res.json(rows)
 })
+
+
+// 비밀번호 재설정 임시
+app.get('/dev/reset-pw', async (req, res) => {
+  const bcrypt = require('bcryptjs')
+  const hash = await bcrypt.hash('admin1234', 12)
+  await query('UPDATE users SET password_hash=$1 WHERE email=$2', [hash, 'admin@forma.com'])
+  res.json({ ok: true })
+})
+
 
 app.use((err, req, res, next) => {
   console.error(err)
