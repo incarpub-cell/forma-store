@@ -735,3 +735,10 @@ footer {
   transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
+
+:root {
+  --bg: #F9F5EF;
+  --border: #E0DAD0;
+  --gold: #B8932A;
+}
