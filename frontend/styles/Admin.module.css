@@ -2,11 +2,11 @@
 .loginWrap {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
-  background: var(--cream);
+  background: #F5F0E8;
 }
 .loginBox {
-  background: var(--card-bg);
-  border: 1px solid var(--light-border);
+  background: #FDFAF5;
+  border: 1px solid #E0DAD0;
   padding: 48px 40px;
   width: 100%; max-width: 400px;
 }
@@ -18,30 +18,30 @@
 }
 .loginSub {
   font-size: 12px; letter-spacing: .15em; text-transform: uppercase;
-  color: var(--muted); text-align: center; margin-bottom: 36px;
+  color: #8C8880; text-align: center; margin-bottom: 36px;
 }
 .field { margin-bottom: 20px; }
 .field label {
   display: block; font-size: 11px; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+  text-transform: uppercase; color: #8C8880; margin-bottom: 8px;
 }
 .field input {
   width: 100%; padding: 12px 14px;
-  border: 1px solid var(--light-border);
+  border: 1px solid #E0DAD0;
   background: white; font-family: var(--font-body);
-  font-size: 14px; color: var(--ink); outline: none;
+  font-size: 14px; color: #1A1814; outline: none;
   transition: border-color .2s;
 }
-.field input:focus { border-color: var(--ink); }
+.field input:focus { border-color: #1A1814; }
 .loginBtn {
   width: 100%; padding: 16px;
-  background: var(--ink); color: var(--cream);
+  background: #1A1814; color: #F5F0E8;
   border: none; cursor: pointer;
   font-family: var(--font-body);
   font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
   transition: background .2s; margin-top: 8px;
 }
-.loginBtn:hover { background: var(--accent); }
+.loginBtn:hover { background: #C4622D; }
 .errorMsg {
   background: #FEF2F2; color: #DC2626;
   padding: 10px 14px; font-size: 13px;
@@ -56,12 +56,12 @@
 .loadingFull {
   min-height: 100vh; display: flex;
   align-items: center; justify-content: center;
-  font-size: 14px; color: var(--muted);
+  font-size: 14px; color: #8C8880;
 }
 
 /* ── Sidebar ─────────────────────────────────── */
 .sidebar {
-  background: var(--ink);
+  background: #1A1814;
   padding: 32px 24px;
   display: flex; flex-direction: column;
   position: sticky; top: 0; height: 100vh;
@@ -114,13 +114,13 @@
   margin-bottom: 40px;
 }
 .statCard {
-  background: var(--card-bg);
-  border: 1px solid var(--light-border);
+  background: #FDFAF5;
+  border: 1px solid #E0DAD0;
   padding: 24px 28px;
 }
 .statLabel {
   font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 10px;
+  color: #8C8880; margin-bottom: 10px;
 }
 .statNum {
   font-family: var(--font-display);
@@ -135,54 +135,52 @@
 .table th {
   text-align: left; padding: 12px 16px;
   font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
-  color: var(--muted); border-bottom: 1px solid var(--light-border);
+  color: #8C8880; border-bottom: 1px solid #E0DAD0;
   font-weight: 500;
 }
 .table td {
   padding: 14px 16px;
-  border-bottom: 1px solid var(--light-border);
+  border-bottom: 1px solid #E0DAD0;
   vertical-align: middle;
 }
-.table tr:hover td { background: var(--cream); }
-.thumbImg {
-  width: 52px; height: 52px; object-fit: cover;
-}
+.table tr:hover td { background: #F5F0E8; }
+.thumbImg { width: 52px; height: 52px; object-fit: cover; }
 .thumbEmpty {
   width: 52px; height: 52px;
-  background: var(--cream);
+  background: #F5F0E8;
   display: flex; align-items: center; justify-content: center;
   font-size: 22px;
 }
 .prodName { font-weight: 500; max-width: 200px; }
 .badge {
   font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
-  padding: 4px 10px; background: var(--cream); color: var(--ink);
+  padding: 4px 10px; background: #F5F0E8; color: #1A1814;
 }
 .badgeOn  { background: #D4E0D8; color: #2D5A3D; }
 .badgeOff { background: #F5E8E8; color: #8B3030; }
 .actionCell { display: flex; gap: 8px; align-items: center; }
 .editBtn {
-  background: var(--ink); color: var(--cream);
+  background: #1A1814; color: #F5F0E8;
   border: none; padding: 7px 14px; cursor: pointer;
   font-size: 11px; font-family: var(--font-body);
   letter-spacing: .08em; transition: background .2s;
 }
-.editBtn:hover { background: var(--accent); }
+.editBtn:hover { background: #C4622D; }
 .toggleBtn {
-  background: none; border: 1px solid var(--light-border);
+  background: none; border: 1px solid #E0DAD0;
   padding: 7px 14px; cursor: pointer;
   font-size: 11px; font-family: var(--font-body);
   letter-spacing: .08em; transition: all .2s;
 }
-.toggleBtn:hover { border-color: var(--ink); }
+.toggleBtn:hover { border-color: #1A1814; }
 .statusSelect {
-  border: 1px solid var(--light-border);
+  border: 1px solid #E0DAD0;
   padding: 6px 10px; font-size: 12px;
   font-family: var(--font-body); background: white;
   cursor: pointer;
 }
 .addBtn {
-  background: var(--accent); color: white;
+  background: #C4622D; color: white;
   border: none; padding: 12px 24px; cursor: pointer;
   font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
   font-family: var(--font-body); transition: opacity .2s;
@@ -198,7 +196,7 @@
   padding: 24px;
 }
 .formBox {
-  background: var(--card-bg);
+  background: #FDFAF5;
   width: 100%; max-width: 760px;
   max-height: 90vh; overflow-y: auto;
   padding: 36px;
@@ -207,100 +205,94 @@
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 28px;
 }
-.formHeader h3 {
-  font-family: var(--font-display); font-size: 22px;
-}
+.formHeader h3 { font-family: var(--font-display); font-size: 22px; }
 .closeBtn {
   background: none; border: none; font-size: 18px;
-  cursor: pointer; color: var(--muted); transition: color .2s;
+  cursor: pointer; color: #8C8880; transition: color .2s;
 }
-.closeBtn:hover { color: var(--ink); }
-.formGrid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-}
+.closeBtn:hover { color: #1A1814; }
+.formGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .formFull { grid-column: 1 / -1; }
 .formGrid label {
   display: block; font-size: 11px; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+  text-transform: uppercase; color: #8C8880; margin-bottom: 8px;
 }
 .formGrid input, .formGrid select, .formGrid textarea {
   width: 100%; padding: 10px 12px;
-  border: 1px solid var(--light-border);
+  border: 1px solid #E0DAD0;
   background: white; font-family: var(--font-body);
-  font-size: 14px; color: var(--ink); outline: none;
+  font-size: 14px; color: #1A1814; outline: none;
   transition: border-color .2s;
 }
 .formGrid input:focus,
 .formGrid select:focus,
-.formGrid textarea:focus { border-color: var(--ink); }
+.formGrid textarea:focus { border-color: #1A1814; }
 .formGrid textarea { resize: vertical; }
 
-.imgRow {
-  display: flex; gap: 10px; align-items: center; margin-bottom: 10px;
-}
+.imgRow { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
 .imgRow input { flex: 1; }
 .imgPreview {
   width: 52px; height: 52px; object-fit: cover; flex-shrink: 0;
-  border: 1px solid var(--light-border);
+  border: 1px solid #E0DAD0;
 }
 .removeImgBtn {
   background: none; border: none; cursor: pointer;
-  color: var(--muted); font-size: 14px; padding: 4px;
+  color: #8C8880; font-size: 14px; padding: 4px;
   transition: color .2s; flex-shrink: 0;
 }
 .removeImgBtn:hover { color: #DC2626; }
 .addImgBtn {
-  background: none; border: 1px dashed var(--light-border);
+  background: none; border: 1px dashed #E0DAD0;
   padding: 10px 16px; cursor: pointer; width: 100%;
-  font-size: 12px; color: var(--muted);
+  font-size: 12px; color: #8C8880;
   font-family: var(--font-body); transition: all .2s;
   margin-top: 4px;
 }
-.addImgBtn:hover { border-color: var(--ink); color: var(--ink); }
+.addImgBtn:hover { border-color: #1A1814; color: #1A1814; }
 
 .formActions {
   display: flex; gap: 12px; justify-content: flex-end;
   margin-top: 32px; padding-top: 24px;
-  border-top: 1px solid var(--light-border);
+  border-top: 1px solid #E0DAD0;
 }
 .cancelBtn {
-  background: none; border: 1px solid var(--light-border);
+  background: none; border: 1px solid #E0DAD0;
   padding: 12px 28px; cursor: pointer;
   font-family: var(--font-body); font-size: 13px;
   letter-spacing: .1em; transition: all .2s;
 }
-.cancelBtn:hover { border-color: var(--ink); }
+.cancelBtn:hover { border-color: #1A1814; }
 .saveBtn {
-  background: var(--ink); color: var(--cream);
+  background: #1A1814; color: #F5F0E8;
   border: none; padding: 12px 36px; cursor: pointer;
   font-family: var(--font-body); font-size: 13px;
   letter-spacing: .1em; text-transform: uppercase;
   transition: background .2s;
 }
-.saveBtn:hover { background: var(--accent); }
+.saveBtn:hover { background: #C4622D; }
 .saveBtn:disabled { opacity: .5; cursor: not-allowed; }
 
-
+/* ── 일괄 등록 ────────────────────────────────── */
 .uploadBanner {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 20px; background: var(--bg);
-  border: 1px solid var(--border); margin-bottom: 16px;
+  padding: 16px 20px; background: #F9F5EF;
+  border: 1px solid #E0DAD0; margin-bottom: 16px;
 }
 .dropZone {
-  position: relative; border: 2px dashed var(--border);
+  position: relative; border: 2px dashed #E0DAD0;
   padding: 48px; text-align: center; cursor: pointer;
   transition: border-color .2s, background .2s;
 }
 .dropZone:hover, .dropActive {
-  border-color: var(--gold); background: rgba(184,147,42,.04);
+  border-color: #B8932A; background: rgba(184,147,42,.04);
 }
 .imgSlotGrid {
   display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
 }
 .imgSlot {
-  aspect-ratio: 3/4; border: 1px dashed var(--border);
+  aspect-ratio: 3/4; border: 1px dashed #E0DAD0;
   display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden; background: var(--bg);
+  position: relative; overflow: hidden; background: #F9F5EF;
   cursor: pointer;
 }
 .imgRemoveBtn {
@@ -309,62 +301,3 @@
   border: none; width: 20px; height: 20px;
   border-radius: 50%; font-size: 12px; cursor: pointer;
 }
-
-
-.uploadBanner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  margin-bottom: 16px;
-}
-
-.dropZone {
-  position: relative;
-  border: 2px dashed var(--border);
-  padding: 48px;
-  text-align: center;
-  cursor: pointer;
-  transition: border-color .2s, background .2s;
-}
-
-.dropZone:hover, .dropActive {
-  border-color: var(--gold);
-  background: rgba(184,147,42,.04);
-}
-
-.imgSlotGrid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-}
-
-.imgSlot {
-  aspect-ratio: 3/4;
-  border: 1px dashed var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  background: var(--bg);
-  cursor: pointer;
-}
-
-.imgRemoveBtn {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  background: rgba(0,0,0,.6);
-  color: white;
-  border: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-
