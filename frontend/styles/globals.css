@@ -737,8 +737,4 @@ footer {
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 
-:root {
-  --bg: #F9F5EF;
-  --border: #E0DAD0;
-  --gold: #B8932A;
-}
+
