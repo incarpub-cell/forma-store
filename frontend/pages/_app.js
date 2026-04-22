@@ -8,9 +8,9 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     if (isAdmin) {
-      document.body.style.cursor = 'default'
+      document.body.classList.add('admin-page')
     } else {
-      document.body.style.cursor = 'none'
+      document.body.classList.remove('admin-page')
     }
   }, [isAdmin])
 

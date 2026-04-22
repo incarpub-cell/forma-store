@@ -30,6 +30,18 @@ body {
   overflow-x: hidden;
   cursor: none;
 }
+
+body.admin-page {
+  cursor: default !important;
+}
+
+body.admin-page button,
+body.admin-page a,
+body.admin-page input,
+body.admin-page select,
+body.admin-page textarea {
+  cursor: pointer !important;
+}
  
 /* ─── CURSOR ─────────────────────────────────────── */
 .cursor {
