@@ -173,8 +173,8 @@ export default function AdminDashboard() {
    일괄 등록 컴포넌트
 ══════════════════════════════════════════════ */
 function BulkUpload({ token, onDone }) {
-  const [step, setStep]         = useState(1)   // 1:엑셀 2:이미지 3:결과
-  const [products, setProducts] = useState([])
+  const [step, setStep]             = useState(1)   // 1:엑셀 2:이미지 3:결과
+  const [bulkProducts, setBulkProducts] = useState([])
   const [imgFiles, setImgFiles] = useState({})  // { index: [File,...] }
   const [progress, setProgress] = useState({ current:0, total:0, label:'' })
   const [logs, setLogs]         = useState([])
@@ -204,7 +204,7 @@ function BulkUpload({ token, onDone }) {
         tag:         String(row['태그']||row['tag']||'').trim(),
         emoji:       String(row['이모지']||row['emoji']||'').trim(),
       })).filter(p => p.name && p.price)
-      setProducts(parsed)
+      setBulkProducts(parsed)
       setImgFiles({})
     }
     reader.readAsArrayBuffer(file)
@@ -241,22 +241,35 @@ function BulkUpload({ token, onDone }) {
 
   // ── 양식 다운로드 ──
   const downloadTemplate = () => {
-    const wb = XLSX.utils.book_new()
-    const ws = XLSX.utils.aoa_to_sheet([
-      ['상품명','가격','카테고리','재고','설명','태그','이모지'],
-      ['코튼 오버핏 재킷',128000,'fashion',50,'상품 설명','NEW','🧥'],
-      ['제주 말차 블렌드', 24000,'food',   80,'상품 설명','','🍵'],
-    ])
-    ws['!cols'] = [{wch:30},{wch:12},{wch:14},{wch:8},{wch:40},{wch:10},{wch:8}]
-
-    const ws2 = XLSX.utils.aoa_to_sheet([
-      ['카테고리 코드','한국어'],
-      ['fashion','패션'],['food','식품'],['beauty','뷰티'],
-      ['lifestyle','라이프스타일'],['health','건강'],
-    ])
-    XLSX.utils.book_append_sheet(wb, ws,  '상품목록')
-    XLSX.utils.book_append_sheet(wb, ws2, '카테고리 가이드')
-    XLSX.writeFile(wb, 'forma_상품등록_양식.xlsx')
+    try {
+      const wb = XLSX.utils.book_new()
+      const ws = XLSX.utils.aoa_to_sheet([
+        ['상품명','가격','카테고리','재고','설명','태그','이모지'],
+        ['코튼 오버핏 재킷',128000,'fashion',50,'상품 설명','NEW','🧥'],
+        ['제주 말차 블렌드', 24000,'food',   80,'상품 설명','','🍵'],
+      ])
+      ws['!cols'] = [{wch:30},{wch:12},{wch:14},{wch:8},{wch:40},{wch:10},{wch:8}]
+      const ws2 = XLSX.utils.aoa_to_sheet([
+        ['카테고리 코드','한국어'],
+        ['fashion','패션'],['food','식품'],['beauty','뷰티'],
+        ['lifestyle','라이프스타일'],['health','건강'],
+      ])
+      XLSX.utils.book_append_sheet(wb, ws,  '상품목록')
+      XLSX.utils.book_append_sheet(wb, ws2, '카테고리 가이드')
+      const wbout = XLSX.write(wb, { bookType:'xlsx', type:'array' })
+      const blob = new Blob([wbout], { type:'application/octet-stream' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'forma_상품등록_양식.xlsx'
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+    } catch(err) {
+      console.error('다운로드 오류:', err)
+      alert('다운로드 오류: ' + err.message)
+    }
   }
 
   // ── 등록 실행 ──
@@ -266,10 +279,10 @@ function BulkUpload({ token, onDone }) {
     setResult(null)
     let success = 0, failed = 0
 
-    for (let i = 0; i < products.length; i++) {
-      const p = products[i]
-      setProgress({ current:i+1, total:products.length, label:`${p.name}` })
-      addLog('info', `[${i+1}/${products.length}] ${p.name} 처리 중...`)
+    for (let i = 0; i < bulkProducts.length; i++) {
+      const p = bulkProducts[i]
+      setProgress({ current:i+1, total:bulkProducts.length, label:`${p.name}` })
+      addLog('info', `[${i+1}/${bulkProducts.length}] ${p.name} 처리 중...`)
 
       try {
         // 1) 이미지 업로드
@@ -315,7 +328,7 @@ function BulkUpload({ token, onDone }) {
     }
 
     setResult({ success, failed })
-    setProgress({ current:products.length, total:products.length, label:'완료!' })
+    setProgress({ current:bulkProducts.length, total:bulkProducts.length, label:'완료!' })
     if (success > 0) onDone()
   }
 
@@ -361,10 +374,10 @@ function BulkUpload({ token, onDone }) {
           </div>
 
           {/* 미리보기 */}
-          {products.length > 0 && (
+          {bulkProducts.length > 0 && (
             <div style={{marginTop:24}}>
               <div className={styles.tabHeader} style={{marginBottom:12}}>
-                <p style={{fontWeight:600}}>총 {products.length}개 상품</p>
+                <p style={{fontWeight:600}}>총 {bulkProducts.length}개 상품</p>
                 <button className={styles.addBtn} onClick={()=>setStep(2)}>다음: 이미지 연결 →</button>
               </div>
               <table className={styles.table}>
@@ -372,7 +385,7 @@ function BulkUpload({ token, onDone }) {
                   <tr><th>#</th><th>상품명</th><th>가격</th><th>카테고리</th><th>재고</th><th>태그</th></tr>
                 </thead>
                 <tbody>
-                  {products.map((p,i)=>(
+                  {bulkProducts.map((p,i)=>(
                     <tr key={i}>
                       <td>{i+1}</td>
                       <td>{p.name}</td>
@@ -380,7 +393,7 @@ function BulkUpload({ token, onDone }) {
                       <td>
                         <select
                           value={p.category}
-                          onChange={e=>setProducts(prev=>prev.map((x,xi)=>xi===i?{...x,category:e.target.value}:x))}
+                          onChange={e=>setProducts(prev=>bulkPrev.map((x,xi)=>xi===i?{...x,category:e.target.value}:x))}
                           style={{padding:'3px 6px',border:'1px solid var(--border)',fontSize:12}}
                         >
                           {CATEGORIES.map(c=><option key={c} value={c}>{CAT_LABEL[c]}</option>)}
@@ -404,7 +417,7 @@ function BulkUpload({ token, onDone }) {
             각 상품에 이미지를 연결하세요. 이미지 없이도 등록 가능합니다. (상품당 최대 5장)
           </p>
 
-          {products.map((p,pi)=>(
+          {bulkProducts.map((p,pi)=>(
             <div key={pi} style={{marginBottom:28,paddingBottom:28,borderBottom:'1px solid var(--border)'}}>
               <p style={{fontWeight:600,marginBottom:2}}>{pi+1}. {p.name}</p>
               <p style={{fontSize:12,color:'var(--muted)',marginBottom:12}}>
@@ -443,7 +456,7 @@ function BulkUpload({ token, onDone }) {
 
           <div style={{display:'flex',justifyContent:'flex-end',marginTop:16}}>
             <button className={styles.addBtn} onClick={startUpload}>
-              🚀 전체 등록하기 ({products.length}개)
+              🚀 전체 등록하기 ({bulkProducts.length}개)
             </button>
           </div>
         </div>
@@ -497,7 +510,7 @@ function BulkUpload({ token, onDone }) {
 
           {result && (
             <div style={{display:'flex',gap:12}}>
-              <button className={styles.cancelBtn} onClick={()=>{setStep(1);setProducts([]);setImgFiles({});setLogs([]);setResult(null)}}>
+              <button className={styles.cancelBtn} onClick={()=>{setStep(1);setBulkProducts([]);setImgFiles({});setLogs([]);setResult(null)}}>
                 + 다시 등록하기
               </button>
               <button className={styles.addBtn} onClick={()=>window.open('https://forma-store-phi.vercel.app','_blank')}>
