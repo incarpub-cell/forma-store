@@ -86,7 +86,7 @@
   flex-direction: column;
   gap: 4px;
   flex: 1;
-  padding-top: 0;
+  padding-top: 80px;
 }
 .navBtn {
   background: none;
