@@ -264,10 +264,16 @@ function BulkUpload({ token, onDone }) {
       const a = document.createElement('a')
       a.href = url
       a.download = 'forma_상품등록_양식.xlsx'
+      a.style.display = 'none'
+      a.addEventListener('click', e => e.stopPropagation())
       document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      URL.revokeObjectURL(url)
+      setTimeout(() => {
+        a.click()
+        setTimeout(() => {
+          document.body.removeChild(a)
+          URL.revokeObjectURL(url)
+        }, 100)
+      }, 0)
     } catch(err) {
       console.error('다운로드 오류:', err)
       alert('다운로드 오류: ' + err.message)
