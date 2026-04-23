@@ -334,12 +334,18 @@ function BulkUpload({ token, onDone }) {
       {step === 1 && (
         <div>
           {/* 양식 다운로드 */}
-          <div className={styles.uploadBanner}>
+          <div className={styles.uploadBanner} onClick={e=>e.stopPropagation()}>
             <div>
               <p style={{fontWeight:600,marginBottom:4}}>📋 엑셀 양식 다운로드</p>
-              <p style={{fontSize:12,color:'var(--muted)'}}>양식에 맞게 상품 정보를 입력 후 업로드하세요</p>
+              <p style={{fontSize:12,color:'#8C8880'}}>양식에 맞게 상품 정보를 입력 후 업로드하세요</p>
             </div>
-            <button type="button" className={styles.addBtn} onClick={e=>{e.preventDefault();e.stopPropagation();downloadTemplate();}}>⬇ 양식 다운로드</button>
+            <button
+              type="button"
+              className={styles.addBtn}
+              onClick={e=>{e.preventDefault();e.stopPropagation();downloadTemplate();}}
+            >
+              ⬇ 양식 다운로드
+            </button>
           </div>
 
           {/* 드롭존 */}
