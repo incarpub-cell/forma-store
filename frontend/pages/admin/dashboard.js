@@ -75,12 +75,14 @@ export default function AdminDashboard() {
         <aside className={styles.sidebar}>
           <span className={styles.sidebarLogo}>Forma</span>
           <nav className={styles.sidebarNav}>
-            <button className={`${styles.navBtn} ${tab==='dashboard'?styles.navActive:''}`} onClick={()=>setTab('dashboard')}>대시보드</button>
-            <button className={`${styles.navBtn} ${tab==='products' ?styles.navActive:''}`} onClick={()=>setTab('products')}>상품 관리</button>
-            <button className={`${styles.navBtn} ${tab==='upload'   ?styles.navActive:''}`} onClick={()=>setTab('upload')}>일괄 등록</button>
-            <button className={`${styles.navBtn} ${tab==='orders'   ?styles.navActive:''}`} onClick={()=>setTab('orders')}>주문 관리</button>
+            <button className={`${styles.navBtn} ${tab==='dashboard' ? styles.navActive : ''}`} onClick={()=>setTab('dashboard')}>대시보드</button>
+            <button className={`${styles.navBtn} ${tab==='products'  ? styles.navActive : ''}`} onClick={()=>setTab('products')}>상품 관리</button>
+            <button className={`${styles.navBtn} ${tab==='upload'    ? styles.navActive : ''}`} onClick={()=>setTab('upload')}>일괄 등록</button>
+            <button className={`${styles.navBtn} ${tab==='orders'    ? styles.navActive : ''}`} onClick={()=>setTab('orders')}>주문 관리</button>
           </nav>
-          <button className={styles.logoutBtn} onClick={logout}>로그아웃</button>
+          <div style={{marginTop: 'auto', paddingTop: '24px'}}>
+            <button className={styles.logoutBtn} onClick={logout}>로그아웃</button>
+          </div>
         </aside>
 
         {/* ── Main ── */}
