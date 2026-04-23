@@ -153,7 +153,9 @@ export default function AdminDashboard() {
 
           {/* ── 일괄 등록 탭 ── */}
           {tab === 'upload' && (
-            <BulkUpload token={token} onDone={loadData} />
+            <div onClick={e=>e.stopPropagation()}>
+              <BulkUpload token={token} onDone={()=>{}} />
+            </div>
           )}
 
           {/* 주문 관리 */}
