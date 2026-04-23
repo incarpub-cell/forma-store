@@ -62,13 +62,18 @@
 /* ── Sidebar ─────────────────────────────────── */
 .sidebar {
   background: #1A1814;
-  padding: 48px 24px 32px;
+  padding: 40px 24px 32px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   position: sticky;
   top: 0;
   height: 100vh;
   overflow: hidden;
+}
+.sidebarTop {
+  display: flex;
+  flex-direction: column;
 }
 .sidebarLogo {
   font-family: 'Playfair Display', serif;
@@ -76,17 +81,13 @@
   color: white !important;
   letter-spacing: .1em;
   text-transform: uppercase;
-  margin-bottom: 48px;
-  margin-top: 0;
+  margin-bottom: 40px;
   display: block;
-  flex-shrink: 0;
 }
 .sidebarNav {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  flex: 1;
-  padding-top: 80px;
 }
 .navBtn {
   background: none;
