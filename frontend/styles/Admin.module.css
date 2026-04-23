@@ -62,7 +62,7 @@
 /* ── Sidebar ─────────────────────────────────── */
 .sidebar {
   background: #1A1814;
-  padding: 32px 24px;
+  padding: 48px 24px 32px;
   display: flex;
   flex-direction: column;
   position: sticky;
@@ -76,8 +76,8 @@
   color: white !important;
   letter-spacing: .1em;
   text-transform: uppercase;
-  margin-bottom: 56px;
-  margin-top: 8px;
+  margin-bottom: 48px;
+  margin-top: 0;
   display: block;
   flex-shrink: 0;
 }
@@ -86,7 +86,7 @@
   flex-direction: column;
   gap: 4px;
   flex: 1;
-  padding-top: 32px;
+  padding-top: 0;
 }
 .navBtn {
   background: none;
