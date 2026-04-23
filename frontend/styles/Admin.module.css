@@ -83,6 +83,7 @@
   text-transform: uppercase;
   margin-bottom: 40px;
   display: block;
+  flex-shrink: 0;
 }
 .sidebarNav {
   display: flex;
