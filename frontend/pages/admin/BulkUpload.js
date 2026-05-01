@@ -73,44 +73,8 @@ function BulkUpload({ token, onDone }) {
     })
   }
 
-  // ── 양식 다운로드 ──
-  const downloadTemplate = () => {
-    try {
-      const wb = XLSX.utils.book_new()
-      const ws = XLSX.utils.aoa_to_sheet([
-        ['상품명','가격','카테고리','재고','설명','태그','이모지'],
-        ['코튼 오버핏 재킷',128000,'fashion',50,'상품 설명','NEW','🧥'],
-        ['제주 말차 블렌드', 24000,'food',   80,'상품 설명','','🍵'],
-      ])
-      ws['!cols'] = [{wch:30},{wch:12},{wch:14},{wch:8},{wch:40},{wch:10},{wch:8}]
-      const ws2 = XLSX.utils.aoa_to_sheet([
-        ['카테고리 코드','한국어'],
-        ['fashion','패션'],['food','식품'],['beauty','뷰티'],
-        ['lifestyle','라이프스타일'],['health','건강'],
-      ])
-      XLSX.utils.book_append_sheet(wb, ws,  '상품목록')
-      XLSX.utils.book_append_sheet(wb, ws2, '카테고리 가이드')
-      const wbout = XLSX.write(wb, { bookType:'xlsx', type:'array' })
-      const blob = new Blob([wbout], { type:'application/octet-stream' })
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = 'forma_상품등록_양식.xlsx'
-      a.style.display = 'none'
-      a.addEventListener('click', e => e.stopPropagation())
-      document.body.appendChild(a)
-      setTimeout(() => {
-        a.click()
-        setTimeout(() => {
-          document.body.removeChild(a)
-          URL.revokeObjectURL(url)
-        }, 100)
-      }, 0)
-    } catch(err) {
-      console.error('다운로드 오류:', err)
-      alert('다운로드 오류: ' + err.message)
-    }
-  }
+  // ── 양식 안내 표시 ──
+  const [showGuide, setShowGuide] = useState(false)
 
   // ── 등록 실행 ──
   const startUpload = async () => {
@@ -186,20 +150,47 @@ function BulkUpload({ token, onDone }) {
       {/* ── STEP 1: 엑셀 ── */}
       {step === 1 && (
         <div>
-          {/* 양식 다운로드 */}
-          <div className={styles.uploadBanner} onClick={e=>e.stopPropagation()}>
+          {/* 양식 안내 */}
+          <div className={styles.uploadBanner}>
             <div>
-              <p style={{fontWeight:600,marginBottom:4}}>📋 엑셀 양식 다운로드</p>
-              <p style={{fontSize:12,color:'#8C8880'}}>양식에 맞게 상품 정보를 입력 후 업로드하세요</p>
+              <p style={{fontWeight:600,marginBottom:4}}>📋 엑셀 컬럼 양식</p>
+              <p style={{fontSize:12,color:'#8C8880'}}>아래 컬럼에 맞게 엑셀 파일을 작성 후 업로드하세요</p>
             </div>
-            <button
-              type="button"
-              className={styles.addBtn}
-              onClick={e=>{e.preventDefault();e.stopPropagation();downloadTemplate();}}
-            >
-              ⬇ 양식 다운로드
+            <button type="button" className={styles.addBtn} onClick={()=>setShowGuide(g=>!g)}>
+              {showGuide ? '양식 닫기 ▲' : '양식 보기 ▼'}
             </button>
           </div>
+          {showGuide && (
+            <div style={{marginBottom:16,border:'1px solid #E0DAD0',overflow:'auto'}}>
+              <table style={{width:'100%',borderCollapse:'collapse',fontSize:12}}>
+                <thead>
+                  <tr style={{background:'#1A1814',color:'white'}}>
+                    <th style={{padding:'8px 12px',textAlign:'left'}}>상품명 *</th>
+                    <th style={{padding:'8px 12px',textAlign:'left'}}>가격 *</th>
+                    <th style={{padding:'8px 12px',textAlign:'left'}}>카테고리 *</th>
+                    <th style={{padding:'8px 12px',textAlign:'left'}}>재고</th>
+                    <th style={{padding:'8px 12px',textAlign:'left'}}>설명</th>
+                    <th style={{padding:'8px 12px',textAlign:'left'}}>태그</th>
+                    <th style={{padding:'8px 12px',textAlign:'left'}}>이모지</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style={{background:'#F9F5EF'}}>
+                    <td style={{padding:'8px 12px',color:'#8C8880'}}>코튼 오버핏 재킷</td>
+                    <td style={{padding:'8px 12px',color:'#8C8880'}}>128000</td>
+                    <td style={{padding:'8px 12px',color:'#8C8880'}}>fashion</td>
+                    <td style={{padding:'8px 12px',color:'#8C8880'}}>50</td>
+                    <td style={{padding:'8px 12px',color:'#8C8880'}}>상품 설명</td>
+                    <td style={{padding:'8px 12px',color:'#8C8880'}}>NEW</td>
+                    <td style={{padding:'8px 12px',color:'#8C8880'}}>🧥</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style={{padding:'10px 12px',background:'#F9F5EF',borderTop:'1px solid #E0DAD0',fontSize:11,color:'#8C8880'}}>
+                카테고리: <strong>fashion</strong> / <strong>food</strong> / <strong>beauty</strong> / <strong>lifestyle</strong> / <strong>health</strong>
+              </div>
+            </div>
+          )}
 
           {/* 드롭존 */}
           <div
