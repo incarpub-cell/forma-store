@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { apiFetch } from '../../lib/store'
@@ -12,7 +12,7 @@ const CAT_LABEL  = { fashion:'패션', food:'식품', beauty:'뷰티', lifestyle
 export default function AdminDashboard() {
   const router = useRouter()
   const [tab, setTab] = useState('products')
-  const [products, setProducts] = useState([])
+  const [adminProducts, setAdminProducts] = useState([])
   const [orders, setOrders] = useState([])
   const [stats, setStats] = useState({})
   const [loading, setLoading] = useState(true)
@@ -27,41 +27,57 @@ export default function AdminDashboard() {
     loadData(t)
   }, [])
 
-  const authFetch = (path, options = {}) =>
-    apiFetch(path, {
-      ...options,
-      headers: { Authorization: `Bearer ${token || localStorage.getItem('admin_token')}`, ...options.headers },
-    })
-
-  const loadData = async (t) => {
-    const tk = t || token
+  const loadData = useCallback(async (t) => {
+    const tk = t || localStorage.getItem('admin_token')
     setLoading(true)
     try {
       const [prodData, dashData] = await Promise.all([
         apiFetch('/api/admin/products', { headers: { Authorization: `Bearer ${tk}` } }),
         apiFetch('/api/admin/dashboard', { headers: { Authorization: `Bearer ${tk}` } }),
       ])
-      setProducts(prodData.products || [])
+      setAdminProducts(prodData.products || [])
       setStats(dashData.stats || {})
       setOrders(dashData.recentOrders || [])
     } catch { router.push('/admin') }
     finally { setLoading(false) }
+  }, [])
+
+  const changeTab = (newTab) => {
+    setShowForm(false)
+    setEditProduct(null)
+    setTab(newTab)
   }
 
   const logout = () => { localStorage.removeItem('admin_token'); router.push('/admin') }
 
   const toggleActive = async (id, is_active) => {
-    await authFetch(`/api/admin/products/${id}/status`, {
-      method: 'PATCH', body: JSON.stringify({ is_active: !is_active }),
+    const tk = localStorage.getItem('admin_token')
+    await apiFetch(`/api/admin/products/${id}/status`, {
+      method: 'PATCH',
+      headers: { Authorization: `Bearer ${tk}` },
+      body: JSON.stringify({ is_active: !is_active }),
     })
     loadData()
   }
 
   const updateOrderStatus = async (id, status) => {
-    await authFetch(`/api/admin/orders/${id}/status`, {
-      method: 'PATCH', body: JSON.stringify({ status }),
+    const tk = localStorage.getItem('admin_token')
+    await apiFetch(`/api/admin/orders/${id}/status`, {
+      method: 'PATCH',
+      headers: { Authorization: `Bearer ${tk}` },
+      body: JSON.stringify({ status }),
     })
     loadData()
+  }
+
+  const openEdit = (p) => {
+    setEditProduct(p)
+    setShowForm(true)
+  }
+
+  const openAdd = () => {
+    setEditProduct(null)
+    setShowForm(true)
   }
 
   if (loading) return <div className={styles.loadingFull}>로딩 중...</div>
@@ -76,10 +92,10 @@ export default function AdminDashboard() {
           <div className={styles.sidebarTop}>
             <span className={styles.sidebarLogo}>Forma</span>
             <nav className={styles.sidebarNav}>
-              <button className={`${styles.navBtn} ${tab==='dashboard' ? styles.navActive : ''}`} onClick={e=>{e.stopPropagation();setShowForm(false);setTab('dashboard')}}>대시보드</button>
-              <button className={`${styles.navBtn} ${tab==='products'  ? styles.navActive : ''}`} onClick={e=>{e.stopPropagation();setShowForm(false);setTab('products')}}>상품 관리</button>
-              <button className={`${styles.navBtn} ${tab==='upload'    ? styles.navActive : ''}`} onClick={e=>{e.stopPropagation();setShowForm(false);setTab('upload')}}>일괄 등록</button>
-              <button className={`${styles.navBtn} ${tab==='orders'    ? styles.navActive : ''}`} onClick={e=>{e.stopPropagation();setShowForm(false);setTab('orders')}}>주문 관리</button>
+              <button className={`${styles.navBtn} ${tab==='dashboard' ? styles.navActive : ''}`} onClick={()=>changeTab('dashboard')}>대시보드</button>
+              <button className={`${styles.navBtn} ${tab==='products'  ? styles.navActive : ''}`} onClick={()=>changeTab('products')}>상품 관리</button>
+              <button className={`${styles.navBtn} ${tab==='upload'    ? styles.navActive : ''}`} onClick={()=>changeTab('upload')}>일괄 등록</button>
+              <button className={`${styles.navBtn} ${tab==='orders'    ? styles.navActive : ''}`} onClick={()=>changeTab('orders')}>주문 관리</button>
             </nav>
           </div>
           <button className={styles.logoutBtn} onClick={logout}>로그아웃</button>
@@ -107,11 +123,11 @@ export default function AdminDashboard() {
             <div>
               <div className={styles.tabHeader}>
                 <h2 className={styles.pageTitle}>상품 관리</h2>
-                <button className={styles.addBtn} onClick={()=>{setEditProduct(null);setShowForm(true)}}>+ 상품 등록</button>
+                <button className={styles.addBtn} onClick={openAdd}>+ 상품 등록</button>
               </div>
-              {showForm && tab === 'products' && (
+              {showForm && (
                 <ProductForm
-                  token={token}
+                  token={localStorage.getItem('admin_token')}
                   product={editProduct}
                   onClose={()=>{setShowForm(false);setEditProduct(null)}}
                   onSave={()=>{setShowForm(false);setEditProduct(null);loadData()}}
@@ -122,7 +138,7 @@ export default function AdminDashboard() {
                   <tr><th>이미지</th><th>상품명</th><th>카테고리</th><th>가격</th><th>재고</th><th>상태</th><th>관리</th></tr>
                 </thead>
                 <tbody>
-                  {products.map(p => (
+                  {adminProducts.map(p => (
                     <tr key={p.id}>
                       <td>
                         {p.images?.[0]
@@ -139,7 +155,7 @@ export default function AdminDashboard() {
                         </span>
                       </td>
                       <td className={styles.actionCell}>
-                        <button className={styles.editBtn} onClick={()=>{setEditProduct(p);setShowForm(true)}}>수정</button>
+                        <button className={styles.editBtn} onClick={()=>openEdit(p)}>수정</button>
                         <button className={styles.toggleBtn} onClick={()=>toggleActive(p.id,p.is_active)}>
                           {p.is_active?'숨기기':'활성화'}
                         </button>
@@ -153,7 +169,7 @@ export default function AdminDashboard() {
 
           {/* 일괄 등록 */}
           {tab === 'upload' && (
-            <BulkUpload token={token} onDone={loadData} />
+            <BulkUpload token={localStorage.getItem('admin_token')} onDone={loadData} />
           )}
 
           {/* 주문 관리 */}
