@@ -380,3 +380,7 @@ function ProductForm({ token, product, onClose, onSave }) {
     </div>
   )
 }
+// 정적 export 방지 - SSR 강제
+export async function getServerSideProps() {
+  return { props: {} }
+}
