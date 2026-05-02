@@ -271,38 +271,6 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="api-section">
-        <div className="api-inner">
-          <div className="api-header">
-            <div>
-              <p className="api-eyebrow">개발자 &amp; 파트너 전용</p>
-              <h2 className="api-title">선물을 <em>자동으로</em><br/>업로드하세요</h2>
-              <p className="api-desc">REST API를 통해 어떤 시스템에서도 상품을 자동 등록할 수 있습니다.</p>
-            </div>
-            <div className="api-code">
-              <span className="code-line"><span className="cc"># 상품 자동 등록 예시</span></span>
-              <span className="code-line">&nbsp;</span>
-              <span className="code-line">POST /api/v1/products</span>
-              <span className="code-line">Authorization: Bearer <span className="cs">sk-live-xxxx</span></span>
-              <span className="code-line">&nbsp;</span>
-              <span className="code-line">{'{'}</span>
-              <span className="code-line">&nbsp;&nbsp;<span className="ck">"name"</span>: <span className="cs">"선물 상품명"</span>,</span>
-              <span className="code-line">&nbsp;&nbsp;<span className="ck">"price"</span>: <span className="cn">35000</span>,</span>
-              <span className="code-line">&nbsp;&nbsp;<span className="ck">"category"</span>: <span className="cs">"lifestyle"</span></span>
-              <span className="code-line">{'}'}</span>
-            </div>
-          </div>
-          <div className="api-feats">
-            {[{n:'01',t:'REST API 제공',d:'상품 등록, 수정, 재고 동기화, 주문 조회까지.'},{n:'02',t:'API Key 인증',d:'파트너사/채널별 키 발급. 권한과 Rate Limit 개별 설정.'},{n:'03',t:'Webhook 알림',d:'주문 발생, 재고 소진 이벤트를 실시간으로 전송.'}].map(f => (
-              <div key={f.n} className="api-feat">
-                <p className="af-n">{f.n}</p>
-                <p className="af-t">{f.t}</p>
-                <p className="af-d">{f.d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
 
       <footer>
         <div>
